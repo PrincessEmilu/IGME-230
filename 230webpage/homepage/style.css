@@ -1,0 +1,92 @@
+/*Adjustments for mobile/small screens*/
+@media (max-width: 1000px) {
+    html {
+        margin: 1em;
+        font-family: 'Playfair Display', serif;
+    }
+    h1{
+        border-bottom-width: thick;
+    }
+  }
+
+/*Base Document attributes*/
+html {
+    margin: 1em 20em;
+    min-width: 500px;
+    background-color: rgb(247, 168, 184);
+    font-family: 'Playfair Display', serif;
+}
+
+/*Class Selectors*/
+.greeting {
+    text-align: center;
+}
+
+.blocktext {
+        text-indent: 3em;
+        line-height: 2.0;
+        margin: 2em;
+        overflow: auto;
+        display: block;
+}
+
+/*ID Selectors*/
+#portrait {
+
+    max-width: 200px;
+    max-height: 200px;
+
+    border: 20px solid rgb(85, 205, 252);
+    border-radius: 25px;
+
+    vertical-align: text-bottom;
+
+    float: left;
+    margin-right: 1em;
+    clear:both;
+
+}
+
+#links{
+    text-align: center;
+}
+
+/*Block Tags */
+h1 {
+    font-weight: bolder;
+    font-size-adjust: 1;
+    
+    border-bottom: 0.1em dashed rgb(247, 168, 184);
+    border-bottom-width: thin;
+
+    text-align: center;
+
+    margin-left: 2em;
+    margin-right: 2em;
+
+    padding-bottom: 1em;
+}
+
+section{
+    background-color: white;
+    
+    border: 20px solid rgb(85, 205, 252);
+    border-radius: 25px;
+    
+    padding: 1em 1em;
+    margin-bottom: 3em;
+}
+
+/*Anchor Status settings*/
+a {
+    color:gray;
+}
+a:hover {
+    color:rgb(85, 205, 252);
+}
+a:visited {
+    color:rgb(247, 168, 184)
+}
+a:active {
+    color:black;
+}
