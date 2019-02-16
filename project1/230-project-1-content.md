@@ -25,9 +25,15 @@ the ethics of their own power-grab.
 ## Esthetics  
 ## Gameplay  
 ### Mechanics  
-### Control  
+### Controls  
+This game will be controlled exclusively with the mouse. Most of the game will be clicking on buttons and navigating
+various menus, or directing a graphical representation of your minnions on screen. 
 ### Onboarding  
 ### Player Learning  
 ### Screenshots  
 ### Other
 ### About the Developer  
+Emily Horton is a third-year Game Deisgn and Development major at Rochester Institute of Technology. She transfered from a two-year
+New Media program at Tompkins Cortland Community College, where she earned an Associate Degree of Science.  
+Emily's main skills are in game design and gameplay programming. She primarily works with coding in C#, but she is familiar with
+Adobe Photoshop, Flash, and Illustrator.
