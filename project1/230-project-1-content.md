@@ -5,7 +5,7 @@ As Queen of The Hive, you wield total control over your minions as you build you
 planet.
 
 ## Genre
-*Queen* is a cross between an idle game and a simmulation. Think *Clicker Heroes* meets
+*Queen* is a cross between an incremental game and a simmulation. Think *Clicker Heroes* meets
 building an economy as the Zerg from *StarCraft*.
 
 ## Platform  
@@ -47,6 +47,16 @@ After the player has harvested enough nutrients, a new menu option to spawn a mi
 
 ### Player Learning
 In order to be successful in *Queen*, the player needs to make decisions on building their economy and upgrading their species. There isn't necesarily a way to lose in this game, but progression towards end-game of assimilating the whole planet will take inefficient players much longer to accomplish.
+
+At its core, *Queen* follows a path of linear improvements that have exponentially increasing costs, as most incremental games do. Although the diminishing returns on repeatable upgrades may be initially obvious to the player, the gradual introduction of additional currencies and multiple vectors will make the optimal strategy ambiguous and encourage the player to explore and experiment.
+
+As stated earlier, the game begins with harvesting nutrient and growing an army of ticks. Tick growth, however, will be limited by how many hosts the player currently is infecting. The ability to infect a new host will not be introduced to the player until they start to get close to their current limit, at which point the player will be presented with two new menu sections, one for buying mutations and the other for buying or sacrificing hosts. The player will see that they can't buy upgrades yet because they cost protein, a currency they haven't enoucntered yet. On the thost screen, the player will see they can buy a new host, which will cost them some of their minions. When they buy a host, the player will also be shown a new button- sacrifice host. This progression will express to the player that they have a way of obtaining protein through sacrificing a host, but hosts come with an opportunity cost of lost minions (and a lower growth cap).
+
+Although buying a new host will set the player back at first, they will see that they can also sacrifice a host to earn enough protein to buy mutations, which will increase their production. This cycle of temporary setbacks and changing caps on player growth will be the crux of the game and will present the element of choice to players.
+
+There will be three main mutations that modify the production cycle- Harvest Efficiency, Spawning Cost, and Automatic Harvesting. Harvest Efficiency increases the nutrients gained per click; Spawning Cost reduces the cost to spawn new minions, and Automatic Harvesting will allow resources to be gained over time in addition to per-click. All of these upgrades will cost protein, meaning that they will require multiple cycles of growth and sacrifice.
+
+Upgrade and minion costs will grow exponentially, while growth increase will advance linearly. Although it will be up to the player what they decide to upgrade first, as well as when they think upgrades are necesary, the Harvest Efficiency mutation will probably be their first priority. Used in conjunction with Spawning Cost, the player can start to farm protein much faster, which will allow them to start investing in Automatic Harvesting much faster.
 
 ### Screenshots  
 I'll definitely get these up soon.
