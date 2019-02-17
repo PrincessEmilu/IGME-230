@@ -59,7 +59,8 @@ There will be three main mutations that modify the production cycle- Harvest Eff
 Upgrade and minion costs will grow exponentially, while growth increase will advance linearly. Although it will be up to the player what they decide to upgrade first, as well as when they think upgrades are necesary, the Harvest Efficiency mutation will probably be their first priority. Used in conjunction with Spawning Cost, the player can start to farm protein much faster, which will allow them to start investing in Automatic Harvesting much faster.
 
 ### Screenshots  
-I'll definitely get these up soon.
+![How the early game might look.](https://github.com/PrincessEmilu/IGME-230/blob/master/project1/media/queen_mockup2.jpg "Start of the game")
+![What the game looks like with more upgrades](https://github.com/PrincessEmilu/IGME-230/blob/master/project1/media/queen_mockup1.jpg "Unlocking more upgrades")
 
 ### Other  
 Hm. I'm not sure what to put here.
