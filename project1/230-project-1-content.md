@@ -22,7 +22,7 @@ As the player advances and builds their economy, the queen's power lust becomes 
 
 ## Esthetics   
 
-*Queen* will use vector graphics that aim to look simple and stylistic. 
+*Queen* will use stylized, modern flat-shaded sprites that will appear relatively simple. 
 
 The game will have basic sound effects for menu interaction as well as context-specific sounds for more dramatic actions, such as spawning a new minion or sacrificing a host for its resources. 
 
