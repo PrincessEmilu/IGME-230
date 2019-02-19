@@ -1,0 +1,22 @@
+html{
+    font-family: 'Nunito', sans-serif;
+    margin: 20px 20px;
+}
+
+nav{
+    display: flex;
+    max-width: 300px;
+    margin: 20px auto;
+}
+a:link{
+    color: orange;
+}
+a:hover{
+    color: orange;
+}
+a:visited{
+    color: orange;
+}
+a:active{
+    color: orange;
+}
