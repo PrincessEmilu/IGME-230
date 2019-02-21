@@ -50,6 +50,9 @@ html, body{
     align-items: center;
 
     color: white;
+    font-family: 'Lobster', cursive;
+    font-size: 20pt;
+
     border-width: 5px 10px;
     background-color: #8332ac;
     border-color: #462749;
@@ -62,7 +65,7 @@ html, body{
     grid-row: 2;
 
     border-width: 5px 10px;
-    background-color: #bad1cd;
+    background-color: #b666d2;
     border-color: #462749;
     border-style: solid;
 }
@@ -88,16 +91,14 @@ html, body{
     text-decoration: none;
     text-align: center;
 
-    border-radius: 5px;
-
     transition: color 0.25s, background-color 0.5s;
+
 }
 
 .navigation a:hover{
-    color: white;
-    background-color: #462255;
     border-bottom-color: white;
     border-bottom-style: solid;
+    border-radius: 10px;
 
 }
 
@@ -153,7 +154,7 @@ html, body{
 
     border-width: 5px 10px;
     background-color: #bad1cd;
-    border-color: #462749;
+    border-color: #b666d2;
     border-style: solid;
 }
 
