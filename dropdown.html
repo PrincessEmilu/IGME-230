@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul.menu, ul.menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .menu a {
+            display: block;
+            background: gray;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .menu li {
+            width: 25%;
+        }
+
+        @media (max-width:500px) {
+            .menu li {
+                width: 100%;
+            }
+        }
+
+        .menu a:hover {
+            background:lightBlue;
+            color:blue;
+        }
+
+        /* Using the following instead of the 
+        selector above will also add the 
+        highlight on the submenu items */
+
+        /* 
+        .menu a:hover, .menu .submenu li>a:hover {
+            background:lightBlue;
+            color:blue;
+        } */
+
+        ul.menu ul li {
+            width:100%;
+        }
+
+        ul.menu ul {
+            display:none;
+        }
+
+        ul.menu li:hover ul {
+            display:flex;
+        }
+
+        .menu .submenu li>a {
+            background:lightgoldenrodyellow;
+            color:blue;
+        }
+
+        .menu .submenu>a:after {
+            content: "+";
+            padding-left:5px;
+
+        } 
+
+    </style>
+</head>
+
+<body>
+    <ul class="menu">
+        <li><a href="http://www.rit.edu">Link 1</a></li>
+        <li class="submenu"><a href="http://www.google.com">Link 2</a>
+            <ul>
+                    <li><a href="http://www.rit.edu">Link 1</a></li>
+                    <li><a href="http://www.google.com">Link 2</a></li>
+                    <li><a href="http://www.apple.com">Link 3</a></li>
+                </ul>
+        </li>
+        <li><a href="http://www.apple.com">Link 3</a></li>
+    </ul>
+</body>
+
+</html>
