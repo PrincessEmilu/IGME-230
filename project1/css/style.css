@@ -225,6 +225,10 @@ a:active{
     }
     .imageSmall{
         display: block;
-        margin: 1em auto;
+
+        width: 100%;
+
+        padding: 1em 0;
+        
     }
 }
