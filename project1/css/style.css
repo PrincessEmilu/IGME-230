@@ -91,6 +91,8 @@ html, body{
     text-decoration: none;
     text-align: center;
 
+    border-radius: 10px;
+
     transition: color 0.25s, background-color 0.5s;
 
 }
@@ -98,8 +100,6 @@ html, body{
 .navigation a:hover{
     border-bottom-color: white;
     border-bottom-style: solid;
-    border-radius: 10px;
-
 }
 
 /*Main Content*/
@@ -170,6 +170,9 @@ html, body{
 h1{
     text-shadow: 3px 3px #462749;
 }
+h2{
+    text-decoration: underline;
+}
 
 ul{
     list-style: none;
@@ -201,9 +204,16 @@ a:active{
         display: flex;
         flex-direction: column;
     }
+    
+    .titlebar{
+        justify-content: space-around;
+    }
+    .navigation a:hover{
+        border-style: none;
+    }
 
     .navigation li{
-        width: 100%;
+        width: 50%;
     }
 
     .logo{
