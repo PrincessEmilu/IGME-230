@@ -134,12 +134,6 @@ html, body{
     border-style: solid;
 }
 
-#samplescreens img{
-    border-color: #462749;
-    border-radius: 1em;
-    border-style: solid;
-}
-
 /*Footer*/
 .about{
     grid-row: 4;
@@ -230,6 +224,7 @@ a:active{
         display: none;
     }
     .imageSmall{
-        display: inline;
+        display: block;
+        margin: 1em auto;
     }
 }
