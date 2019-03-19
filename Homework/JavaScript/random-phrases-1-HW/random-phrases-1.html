@@ -8,15 +8,29 @@
     <style>
         html{
             font-family: 'Segoe UI', 'sans-seriff';
-            margin-left: 10px;
-            margin-right: 10px;
             background-image: url("bigBackground.png");
+            background-repeat: repeat-x;
+            background-position: bottom;
+            background-attachment: fixed;
+            background-color: #5c94fc;
         }
-        .container
+        #container
         {
             display: grid;
 
-            grid-template-columns: 1fr, 2fr;
+            margin-left: 20vw;
+            margin-right: 20vw;
+
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 100px 1fr 1fr;
+        }
+        #heading
+        {
+            grid-column-start: 1;
+            grid-column-end: 3;
+
+            display: flex;
+            justify-content: space-around;
         }
         h1
         {
@@ -30,22 +44,48 @@
             margin: 0;
             padding: 0;
         }
+        main
+        {
+            grid-row-start: 2;
+            grid-row-end: 4;
+
+            margin-left: 20px;
+            margin-right: 20px;
+        }
         aside
         {
-            display: flex;
-            align-content: center;
+            grid-column-start: 2;
+            grid-column-end: 3;
 
-            width: 400px;
-            height: 400px;
+            width: 200px;
+            height: 200px;
 
-            background-color: white;
-            border-style: dashed;
-            border-color: brown;
+            font-size: 125%;
+            color: white;
+
+            background-color: #8D4F3A;
+
+            padding: 2em;
+            border-style: solid;
+            border-color: black;
             border-width: 1em;
+            border-radius: 1em;
+        }
+
+        footer
+        {
+            grid-column-start: 2;
+        
+            grid-row-start: 3;
+            grid-row-end: 4;
+
+            padding-left: 4em;
         }
         footer p
         {
             color: white;
+            text-shadow: 2px 2px black;
+            font-size: 125%;
         }
 
     </style>
@@ -53,17 +93,38 @@
 
 <body>
     <div id="container">
-    <h1><span>S</span>uper <span>M</span>ario <span>S</span>uper <span>P</span>hrases (SMSP)</h1>
+        <div id="heading">
+            <h1><span>S</span>uper <span>M</span>ario <span>S</span>uper <span>P</span>hrases (SMSP)</h1>
+        </div>
     <main>
-        <p><img src="marioBig.png"/></p>
-        <aside><p>Here is where the random phrase belongs!</p></aside>
+        <p><img alt="It's Mario!" src="marioBig.png"/></p>
     </main>
+    <aside>
+        <h2>Mario says:</h2>
+        <p>Hey it's Mario</p>
+    </aside>
     <footer>
-        <p>&copy Emily Horton</p>
+        <p>&copy; Emily Horton</p>
     </footer>
     </div>
 <script>
     "use strict";
+
+    let phraseList = [
+        "Itsa me, Mario!",
+        "Yahoo!",
+        "Thank you so much for playing my games!",
+        "Mama Mia!",
+        "Capitalism is a tool for oppression!",
+        "Cops uphold law, not justice.",
+        "Ohhhhh thatsa spicy meatball!",
+        "<em>Mama</em>??? Mama Luigi?",
+        "Gee, it sure was nice of the princess to invite us over for a picnic, aye Luigi?",
+        "Please give Emily a 10/10 on this assignment!"
+        ];
+    let phrase = document.querySelector("aside p");
+
+    phrase.innerHTML = phraseList[Math.floor(Math.random() * 10)];
 </script>
 </body>
 </html>
