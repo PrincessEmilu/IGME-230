@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Web Apps-4-HW</title>
+	<style>
+		body{border:1px solid gray;}
+	</style>
+</head>
+<body>
+<h1>My Favorites</h1>
+<h2>My Favorite Colors</h1>
+
+<ol id="colorsList">
+	
+</ol>
+
+<h2>My Favorite Foods</h1>
+
+<ol id="foodsList">
+	
+</ol>
+
+<script>
+
+"use strict";
+
+//Define arrays
+let colors = ["Purple","Pink","Seafoam","Forest Green","Sky Blue"];
+let foods = ["Pizza","Fries","Pickles","Sandwhiches","Pasta"];
+
+//Calls function for each array
+createList(document.querySelector("ol[id='colorsList']"), colors);
+createList(document.querySelector("ol[id='foodsList']"), foods);
+
+//Appends array elements to list
+function createList(listElement,array = ["puppydogs", "butterflies", "lollipops"])
+{
+    for(let i = 0; i < array.length; i++)
+    {
+        let listItem = document.createElement("li");
+        listItem.innerHTML = array[i];
+        listElement.appendChild(listItem);
+    }
+}
+
+</script>
+</body>
+</html>
