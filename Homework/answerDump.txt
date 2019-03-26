@@ -1,0 +1,6 @@
+1. You can have multiple event listeners on a single element. You also get the option to
+remove event listeners from an element.
+2. window.onload is a good example, waits for object to load instead of assigning a listener
+to something that doesn't exist
+3. The calling element
+4. "this" binding points to window instead of calling object, and they have shorter syntax
