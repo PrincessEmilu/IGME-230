@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SMSP</title>
+    <style>
+        html{
+            font-family: 'Segoe UI', 'sans-seriff';
+            background-image: url("bigBackground.png");
+            background-repeat: repeat-x;
+            background-position: bottom;
+            background-attachment: fixed;
+            background-color: #5c94fc;
+        }
+        #container
+        {
+            display: grid;
+
+            margin-left: 20vw;
+            margin-right: 20vw;
+
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 100px 1fr 1fr;
+        }
+        #heading
+        {
+            grid-column-start: 1;
+            grid-column-end: 3;
+
+            display: flex;
+            justify-content: space-around;
+        }
+        h1
+        {
+            color: white;
+            text-shadow: 2px 2px black;
+        }
+        h1 span
+        {
+            text-shadow: 2px 2px red;
+            font-size: 125%;
+            margin: 0;
+            padding: 0;
+        }
+        main
+        {
+            grid-row-start: 2;
+            grid-row-end: 4;
+
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        aside
+        {
+            grid-column-start: 2;
+            grid-column-end: 3;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+            width: 200px;
+            height: 200px;
+
+            font-size: 125%;
+            color: white;
+
+            background-color: #8D4F3A;
+
+            padding: 2em;
+            border-style: solid;
+            border-color: black;
+            border-width: 1em;
+            border-radius: 1em;
+        }
+        
+        input
+        {
+
+            background-color: #fdb000;
+
+            color: #E52521;
+            text-shadow: 1px 1px #8D4F3A;
+            font-size: 110%;
+            font-weight: bold;
+
+            padding: 1em;
+
+            border-color: black;
+            border-radius: 1em;
+        }
+        input:hover
+        {
+            color: white;
+        }
+        input:active
+        {
+            /*Simulates hitting a block in the mario games!*/
+            transform: translateY(-1em);
+            background-color: #E52521;
+            color: #E52521;
+            text-shadow: 0 0 #E52521;
+        }
+        input:focus
+        {
+            outline: 0;
+        }
+
+        footer
+        {
+            grid-column-start: 2;
+        
+            grid-row-start: 3;
+            grid-row-end: 4;
+
+            padding-left: 4em;
+        }
+        footer p
+        {
+            color: white;
+            text-shadow: 2px 2px black;
+            font-size: 125%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="heading">
+            <h1><span>S</span>uper <span>M</span>ario <span>S</span>uper <span>P</span>hrases (SMSP)</h1>
+        </div>
+    <main>
+        <p><img alt="It's Mario!" src="marioBig.png"/></p>
+    </main>
+    <aside>
+        <h2>Mario says:</h2>
+        <p>Hey it's Mario</p>
+        <p><input type="button" value="New Phrase"></p>
+    </aside>
+    <footer>
+        <p>&copy; Emily Horton</p>
+    </footer>
+    </div>
+<script>
+"use strict";
+
+//Get elements
+let phrase = document.querySelector("aside p");
+let button = document.querySelector("input");
+
+//Declare phrase list
+let phraseList = [
+    "Super Mario JavaScript Homework!",
+    "Dying is painful. Please get better.",
+    "Sonic? Sonic who? Sounds like a chump.",
+    "Be gay,<br>do crimes.",
+    "Mario's pronouns are he/him/his",
+    "Cops uphold law, not justice.",
+    "Thatsa one spicy meatball!",
+    "Stare into the abyss long enough...",
+    "Internet? Is that thing still around?",
+    "I have no mouth and I must scream."
+    ];
+
+//displayQuote for displaying a new quote
+let displayQuote = function()
+{
+    phrase.innerHTML = phraseList[Math.floor(Math.random() * 10)];
+};
+
+//First pass of phrase generation
+displayQuote();
+
+//Add displayQUote to button click handler
+button.onclick = displayQuote;
+
+
+</script>
+</body>
+</html>
