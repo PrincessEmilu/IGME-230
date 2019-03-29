@@ -1,0 +1,4 @@
+1. Asynchronous JavaScript And XML
+2. Ajax the noun now refers to the general concept of getting user intent, exchanging data with a remote server, then updating the HTML. The acronym mentioned XML, which feel out of favor because that technology is less common and other methods are used for data retrieval.
+3. JSON gives smaller file sizes and it's easier to work with javascript because it is a direct mapping to javascript data types.
+4. There are a lot of questions about compatibility based on webservices, as well as what browsers support. Perhaps it has something to do with trying to keep JSON "universal", while methods might end up being incompatible with different technologies.
