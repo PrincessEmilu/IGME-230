@@ -2,255 +2,40 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
- 	<title>Giphy Finder</title>
- 	<style>
-		*{
-			font-family:verdana,tahoma,sans-serif;
-		}
-	
- 		header{
- 			background: url(images/cats.jpg);
- 			height:195px;
- 		}
- 		
- 		header h1{
- 			margin:0;
- 			color:blue;
- 			text-align:center;
- 			font-size:100px;
- 			padding-top: 35px;
- 		}
- 		
- 		#status{
- 			font-style: italic;
- 			height:32px;
- 		}
- 		
- 		.result {
-			position: relative;
-			height: 175px;
-			width: 100px;
-			float:left;
-			border:1px solid gray;
-			padding:5px;
-			margin-left:10px;
-			margin-bottom:10px;
-		}
-
-		.result img {
-			position: absolute;
-			left: 5px;
-			bottom: 5px;
-			display:block;
-			
-		}
-		
-		.result span{
-			font-size:12px;
-			font-weight:bold;
-			display:block;
-		}
-		
-		.result audio{
-			width: 130px;
-		}
-		
-		button{
-		  display : inline-block;
-		  cursor : pointer;
-  
-		  border-style : solid;
-		  border-width : 1px;
-		  border-radius : 50px;
-		  padding : 10px 18px;
-		  box-shadow : 0 1px 4px rgba(0,0,0,.6);
-		  font-size : 9.5pt;
-		  font-weight : bold;
-		  color : #fff;
-		  text-shadow : 0 1px 3px rgba(0,0,0,.4);
-		  font-family : sans-serif;
-		  text-decoration : none;
-		}
-		
-		button.green{
-			border-color: #8fc800;
-	  		background: #8fc800;
-	  		background: linear-gradient(top, #8fc800 0%,#438c00 100%);
-		}
-		
-		button:hover{
-			background: #8fDD00;
-		}
-		
-		button:active{
-			background: #8fFF00;
-			box-shadow : 0 0 6px rgba(0,0,0,.6);
-		}
-		
-		button:focus {outline:0;}
-		
-		.widgets{
-			margin-top: 1em;
-			margin-bottom:1em;
-		}
-		
- 	</style>
-
-  <script>
-    // 1
-  	window.onload = (e) => {document.querySelector("#search").onclick = searchButtonClicked};
-	
-	// 2
-	let displayTerm = "";
-	
-	// 3
-	function searchButtonClicked(){
-		console.log("searchButtonClicked() called");
-
-        //Declare GIPHY_URL
-        const GIPHY_URL = "https://api.giphy.com/v1/gifs/search?";
-
-        //Keys are used to accessing APIs.
-        let GIPHY_KEY = "2v0ZHZ3TLXaOBk6mpZ7kkk0ye8UuVN0G";
-
-        //Build up URL string with our data
-        let url = GIPHY_URL;
-        url += "api_key=" + GIPHY_KEY;
-
-        //Parse the user-entered term
-        let term = document.querySelector("#searchterm").value;
-        displayTerm = term;
-
-        //Sanitize input!
-        term = term.trim();
-
-        //encode spaces and spcieal characters
-        term = encodeURIComponent(term);
-
-        //Bail out of the function if we are left with nothing
-        if(term.length < 1) return;
-
-        //append search term to the url, parameter name is 'q'
-        url += "&q=" + term;
-
-        //Get user-chose search limit and append to URL
-        //let limit = document.querySelector("#limit").value;
-        url += "&limit=" + document.querySelector("#limit").value;
-
-        //Update the UI
-        document.querySelector("#status").innerHTML =
-            "<b>Searching for '" + displayTerm + "'</b>";
-
-        //View what url looks like
-        console.log(url);
-
-        // 12 Request data!
-        getData(url);
-	}
-
-
-//This function is for actually retriving requested data
-    function getData(url){
-        //Create a new XHR object
-        let xhr = new XMLHttpRequest();
-
-        //Set the onload handler
-        xhr.onload = dataLoaded;
-
-        //Set the onerror handler
-        xhr.onerror = dataError;
-
-        //Open connection and send the request
-        xhr.open("GET",url);
-        xhr.send();
-    }
-
-//Callback functions
-    function dataLoaded(e){
-        //event.target is the xhr object
-        let xhr = e.target;
-
-        //xhr.responsetext is the json file we just downloaded
-        console.log(xhr.responseText);
-
-        //turn text into parsable javacript object
-        let obj = JSON.parse(xhr.responseText);
-
-        //if no results, print message and return
-        if(!obj.data || obj.data.length == 0){
-            document.querySelector("#status").innerHTML =
-                "<b>No results found for '" + displayTerm + "'</b>";
-                return;
-        }
-
-        //Start building the HTML for the user
-        let results = obj.data;
-        console.log("results.length = " + results.length);
-        let bigString =
-            "<p>Here are " + results.length + " results for '" + displayTerm + "'</i></p>";
-        
-        //loop through the array of results
-        for (let i=0; i< results.length;i++)
-        {
-            let result = results[i];
-
-            //Get the url to the gif
-            let smallURL = result.images.fixed_width_small.url;
-            if (!smallURL) smallURL = "images/no-image-found.png";
-
-            //Get URL to the giphy page
-            let url = result.url;
-
-            //Build a div to hold each result, using ES6 templating
-            let line =
-                `<div class='result'><img src='${smallURL}' title='${result.id}'/>`;
-
-            line += `<span><a target='_blank' href='${url}'>View on Giphy</a></span></div>`;
-
-            //Add the div to bigString and loop
-            bigString += line;
-        }
-
-        //All done builing the HTML, show it to the user
-        document.querySelector("#content").innerHTML = bigString;
-
-        //update status
-        document.querySelector("#status").innerHTML = "<b>Success!</b>";
-        }
-
-    function dataError(e){
-        console.log("An error occurred");
-    }
-	
-  </script>
-
-  
+	 <title>Giphy Finder</title>
+	 <link rel="stylesheet" type="text/css" href="styles/main.css">
+	 <script src="js/main.js"></script> 
 </head>
+
 <body>
 <header>
 	<h1>Giphy Finder</h1>
 </header>
 
-<div class="widgets">
-	Search Term -> 
-	<input id="searchterm" type="text" size="20" maxlength="20" autofocus value="cats" />
+<div id="widgetContainer">
+	<div class="widgets">
+		Search Term -> 
+		<input id="searchterm" type="text" size="20" maxlength="20" autofocus value="cats" />
+	</div>
+
+	<div class="widgets">
+		Max # results -> 
+		<select id="limit">
+			<option value="5">5</option>
+			<option value="10" selected>10</option>
+			<option value="25">25</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select>
+	</div>
+
+	<div class="widgets">
+		<button type="button" id="search" class="green">Find some GIFs!<br />:-)</button>
+	</div>
 </div>
 
-<div class="widgets">
-	Max # results -> 
-	<select id="limit">
-		<option value="5">5</option>
-		<option value="10" selected>10</option>
-		<option value="25">25</option>
-		<option value="50">50</option>
-		<option value="100">100</option>
-	</select>
-</div>
-
-<div class="widgets">
-	<button type="button" id="search" class="green">Find some GIFs!<br />:-)</button>
-</div>
 <div id="status">Ready to Search!</div>
+
 <hr>
 
 <h2>Results</h2>
