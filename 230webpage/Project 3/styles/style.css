@@ -1,0 +1,234 @@
+/*Site Layout*/
+
+html, body{
+    font-family: 'Nunito', sans-serif;
+    font-size: 14pt;
+    margin: 0;
+    padding: 0;
+
+    align-content: center;
+}
+
+.container{
+    
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    /* Background pattern from Toptal Subtle Patterns */
+
+    background-image: url("../images/dark-honeycomb.png");
+    background-repeat: repeat;
+    background-blend-mode: luminosity;
+    background-color: #8332ac;
+}
+
+.grid{
+    display:grid;
+
+    grid-template-rows: 100px 100px 2fr 175px;
+
+    min-height: 100vh;
+
+    width: 80%;
+    max-width: 1000px;
+
+    border-color: black;
+    border-style: solid;
+    border-radius: 1em;
+    border-width: 0.5em;
+}
+
+/*Titlebar*/
+
+.titlebar {
+    grid-column: 1/3;
+    grid-row: 1;
+    display:flex;
+    justify-content: space-between;
+    padding: 0 2em;
+    align-items: center;
+
+    color: white;
+    font-family: 'Lobster', cursive;
+    font-size: 20pt;
+
+    border-width: 5px 10px;
+    background-color: #8332ac;
+    border-color: #462749;
+    border-style: solid;
+  }
+
+/*Top Navigation*/
+.navigation{
+    grid-column: 1/3;
+    grid-row: 2;
+
+    border-width: 5px 10px;
+    background-color: #b666d2;
+    border-color: #462749;
+    border-style: solid;
+}
+
+.navigation ul{
+    display: flex;
+    flex-wrap: wrap;
+
+    padding: 1em 0.5em;
+    margin: 0;
+}
+
+.navigation li{
+    width: 25%;
+}
+
+.navigation a{
+    display: block;
+
+    padding: 10px 20px;
+
+    font-size: 18pt;
+    text-decoration: none;
+    text-align: center;
+
+    border-radius: 10px;
+
+    transition: color 0.25s, background-color 0.5s;
+
+}
+
+.navigation a:hover{
+    border-bottom-color: white;
+    border-bottom-style: solid;
+}
+
+/*Main Content*/
+.content{
+    grid-row: 3;
+    grid-column: 1/3;
+
+    align-content:  center;
+    padding: 0.5em 2em;
+
+    color: white;
+
+    border-width: 5px 10px;
+    background-color: #e086d3;
+    border-color: #462749;
+    border-style: solid;
+}
+
+#index{
+    grid-row: 3;
+    grid-column: 1/3;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0.5em 2em;
+    color: white;
+
+    border-width: 5px 10px;
+    background-color: #e086d3;
+    border-color: #462749;
+    border-style: solid;
+}
+
+/*Footer*/
+.about{
+    grid-row: 4;
+    grid-column: 1/3;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0.5em 2em;
+    
+    color: white;
+
+    border-width: 5px 10px;
+    background-color: #b666d2;
+    border-color: #462749;
+    border-style: solid;
+}
+
+.connect ul{
+    display: flex;
+}
+
+.connect li{
+    padding: 10px;
+}
+
+/*Site-wide styles*/
+h1{
+    text-shadow: 3px 3px #462749;
+}
+h2{
+    text-decoration: underline;
+}
+
+ul{
+    list-style: none;
+}
+
+.imageSmall{
+    display: none;
+}
+
+/*Anchor colors*/
+a:link{
+    color: white;
+}
+a:hover{
+    color: white;
+    background-color: #462255;
+}
+a:visited{
+    color: white;
+}
+a:active{
+    color: white;
+}
+
+/*Graceful  Degradation*/
+@media (max-width: 500px){
+
+    .grid{
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+
+        border-style: none;
+    }
+    
+    .titlebar{
+        justify-content: space-around;
+    }
+    .navigation a:hover{
+        border-style: none;
+    }
+
+    .navigation li{
+        width: 50%;
+    }
+
+    .logo{
+        display: none;
+    }
+
+    /*Correct image sizes*/
+
+    .imageFull{
+        display: none;
+    }
+    .imageSmall{
+        display: block;
+
+        width: 100%;
+
+        padding: 1em 0;
+        
+    }
+}
