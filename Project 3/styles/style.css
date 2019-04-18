@@ -191,29 +191,6 @@ a:active{
     color: white;
 }
 
-/*GAME STUFF GOES HERE*/
-#gameWindow{
-
-    width: 800px;
-    height: 600px;
-
-    display: grid;
-
-    border-style: solid;
-    border-color: black;
-    background-color: black;
-
-    font-size: 200%;
-}
-button{
-    background-color: #8332AC;
-    color: white;
-    border-color: #462749;
-    width: 200px;
-    height: 100px;
-
-    border-radius: 10px;
-}
 
 /*Graceful  Degradation*/
 @media (max-width: 500px){
