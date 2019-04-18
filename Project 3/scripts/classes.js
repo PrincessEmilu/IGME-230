@@ -19,5 +19,16 @@ class Button extends PIXI.Sprite{
         this.scale.set(1.0);
         this.x = x;
         this.y = y;
+        let buttonText = new PIXI.Text("Test");
+        startLabel1.style = new PIXI.TextStyle({
+            fill: 0xFFFFFF,
+            fontSize: 48,
+            fontFamily: 'Arial',
+            stroke: 0xFFFFFF,
+            strokeThickness: 1
+        });
+        buttonText.x = this.x;
+        buttonText.y = this.y;
+        gameScene.addChild(buttonText);
     }
 }

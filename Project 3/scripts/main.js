@@ -9,7 +9,8 @@ let nutrients,
     ticks,
     hosts,
     tickCost,
-    hostCost;
+    hostCost,
+    maxMinions;
 
 //For display purposes
 let arrayTicks = [];
@@ -18,47 +19,48 @@ let menuState;
 
 //Labels that get updated
 let labelNutrients;
+let labelMinions;
 
-//Preload images
-PIXI.loader.
-add(["images/skullLogo.png","images/bug1.png"]).
-on("progress",e=>{console.log(`progress=${e.progress}`)}).
-load(setup);
-
-function setup(){
-
-}
 //Create and append the game window.
 const gameWidth = 600;
 const gameHeight = 600;
-const app = new PIXI.Application(600,600);
+const app = new PIXI.Application(600, 600);
 document.querySelector("#gameWindow").appendChild(app.view);
 
 //aLIASES
 const stage = app.stage;
 
 //Game states
-let titleScene,gameScene;
+let titleScene, gameScene;
 
+//Preload images
+PIXI.loader.
+add(["images/skullLogo.png", "images/bug1.png", "images/buttonGlossyLong.png"]).
+on("progress", e => {
+    console.log(`progress=${e.progress}`)
+}).
+load(setup);
 
-//Setup game scenes
-titleScene = new PIXI.Container();
-stage.addChild(titleScene);
+function setup() {
+    //Setup game scenes
+    titleScene = new PIXI.Container();
+    stage.addChild(titleScene);
 
-gameScene = new PIXI.Container();
-gameScene.visible = false;
-stage.addChild(gameScene);
+    gameScene = new PIXI.Container();
+    gameScene.visible = false;
+    stage.addChild(gameScene);
 
-//Setup game scene
-gameScene = new PIXI.Container();
-gameScene.visible = false;
-stage.addChild(gameScene);
+    //Setup game scene
+    gameScene = new PIXI.Container();
+    gameScene.visible = false;
+    stage.addChild(gameScene);
 
-//Sets up the game
-createLabelsAndButtons();
+    //Sets up the game
+    createLabelsAndButtons();
+}
 
-function createLabelsAndButtons(){
-        //TODO: Define different button styles and incorporate them
+function createLabelsAndButtons() {
+    //TODO: Define different button styles and incorporate them
     let buttonStyle = new PIXI.TextStyle({
         fill: 0xFF0000,
         fontSize: 48,
@@ -75,8 +77,8 @@ function createLabelsAndButtons(){
         stroke: 0xFFFFFF,
         strokeThickness: 1
     });
-    startLabel1.x = gameWidth /3;
-    startLabel1.y = gameHeight/4;
+    startLabel1.x = gameWidth / 3;
+    startLabel1.y = gameHeight / 4;
     titleScene.addChild(startLabel1);
 
     //Set up game scene
@@ -97,6 +99,12 @@ function createLabelsAndButtons(){
     labelNutrients.y = 0;
     gameScene.addChild(labelNutrients);
 
+    labelMinions = new PIXI.Text("Minions: 0/100");
+    labelMinions.style = styleStats;
+    labelMinions.x = 0;
+    labelMinions.y = 20;
+    gameScene.addChild(labelMinions);
+
     //Create the start button
     const startButton = PIXI.Sprite.fromImage('images/skullLogo.png');
     startButton.anchor.set(0.5);
@@ -105,9 +113,9 @@ function createLabelsAndButtons(){
     startButton.y = gameHeight - 100;
     startButton.interactive = true;
     startButton.buttonMode = true;
-    startButton.on("pointerup",startGame);
-    startButton.on('pointerover', e=>e.currentTarget.alpha = 0.7);
-    startButton.on('pointerout', e=>e.currentTarget.alpha = 1.0);
+    startButton.on("pointerup", startGame);
+    startButton.on('pointerover', e => e.currentTarget.alpha = 0.7);
+    startButton.on('pointerout', e => e.currentTarget.alpha = 1.0);
     titleScene.addChild(startButton);
 
     //Create the harvest button
@@ -118,9 +126,9 @@ function createLabelsAndButtons(){
     harvestButton.y = gameHeight - 100;
     harvestButton.interactive = true;
     harvestButton.buttonMode = true;
-    harvestButton.on("pointerup",harvestNutrients);
-    harvestButton.on('pointerover', e=>e.currentTarget.alpha = 0.7);
-    harvestButton.on('pointerout', e=>e.currentTarget.alpha = 1.0);
+    harvestButton.on("pointerup", harvestNutrients);
+    harvestButton.on('pointerover', e => e.currentTarget.alpha = 0.7);
+    harvestButton.on('pointerout', e => e.currentTarget.alpha = 1.0);
     gameScene.addChild(harvestButton);
 
     //Create the buy tick button
@@ -131,13 +139,13 @@ function createLabelsAndButtons(){
     buyTickButton.y = gameHeight - 200;
     buyTickButton.interactive = true;
     buyTickButton.buttonMode = true;
-    buyTickButton.on("pointerup",buyTick);
-    buyTickButton.on('pointerover', e=>e.currentTarget.alpha = 0.7);
-    buyTickButton.on('pointerout', e=>e.currentTarget.alpha = 1.0);
+    buyTickButton.on("pointerup", buyTick);
+    buyTickButton.on('pointerover', e => e.currentTarget.alpha = 0.7);
+    buyTickButton.on('pointerout', e => e.currentTarget.alpha = 1.0);
     gameScene.addChild(buyTickButton);
 }
 
-function startGame(){
+function startGame() {
 
     //Change game state
     console.log("Startgame!");
@@ -148,7 +156,10 @@ function startGame(){
     nutrients = 0;
     nutrientsPerClick = 1;
     ticks = 0;
+    hosts = 1;
     tickCost = 10;
+    //Set value of max minions
+    calculateMaxMinions();
 
     menuState = 0;
 
@@ -156,36 +167,37 @@ function startGame(){
 }
 
 //The most basic action the player can take is harvesting nutrients from a host.
-function harvestNutrients(){
+function harvestNutrients() {
     nutrients += nutrientsPerClick;
-
-    //TODO: Consider adding text updates to a method?
-    //Need to update text
-    labelNutrients.text = `Nutrients: ${nutrients}`;
+    updateStats();
 }
 
 //The player can buy ticks to increase their economic gains
-function buyTick(){
-    if(nutrients >= tickCost)
-    {
+function buyTick() {
+    if (nutrients >= tickCost && ticks < maxMinions) {
         nutrients -= tickCost;
         ticks += 1;
+
         calculateCostTick();
+        updateStats();
 
         //TODO: Make this a variables
         nutrientsPerClick += 1;
 
-        let tick = new Tick(getRandom(100, gameWidth), getRandom(0,200));
+        let tick = new Tick(getRandom(100, gameWidth), getRandom(0, 200));
         arrayTicks.push(tick);
         gameScene.addChild(tick);
     }
-
-    //TODO: Consider adding text updates to a method?
-    //Need to update text
-    labelNutrients.text = `Nutrients: ${nutrients}`;
 }
 
-function calculateCostTick(){
-    tickCost = Math.floor((10 * Math.pow(1.7, ticks)));
+function updateStats(){
+    labelNutrients.text = `Nutrients: ${nutrients}`;
+    labelMinions.text = `Minions: ${ticks}/${maxMinions}`;
+}
+function calculateMaxMinions(){
+    maxMinions = hosts * 100;
+}
+function calculateCostTick() {
+    tickCost = Math.floor((10 * Math.pow(1.2, ticks)));
     console.log(tickCost);
 }
