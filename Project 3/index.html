@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.0/pixi.min.js"></script>
 </head>
 <body class="container">
         <div class="grid">
@@ -26,7 +25,13 @@
                 </nav>
             <Main class="content">
                 <h1>Queen</h1>
-                <div id="gameSpace"></div>
+                <div id="gameWindow">
+                    <p id="stats">Nutrients: 0</p>
+                    <div id="buttonsMenu"></div>
+                        <div id="buttonsContext">
+                            <button id="harvest">Harvest</button>
+                        </div>
+                </div> 
             </Main>
             <footer class="about">
                 <h2>Connect</h2>
@@ -39,6 +44,6 @@
                 </nav>
             </footer>
         </div>
-        <script src="scripts/main.js"></script> 
+<script src="scripts/main.js"></script> 
 </body>
 </html>
