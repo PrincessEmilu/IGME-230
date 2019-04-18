@@ -14,9 +14,20 @@ let nutrients,
 //For display purposes
 let arrayTicks = [];
 
+let menuState;
+
 //Labels that get updated
 let labelNutrients;
 
+//Preload images
+PIXI.loader.
+add(["images/skullLogo.png","images/bug1.png"]).
+on("progress",e=>{console.log(`progress=${e.progress}`)}).
+load(setup);
+
+function setup(){
+
+}
 //Create and append the game window.
 const gameWidth = 600;
 const gameHeight = 600;
@@ -100,7 +111,7 @@ function createLabelsAndButtons(){
     titleScene.addChild(startButton);
 
     //Create the harvest button
-    const harvestButton = PIXI.Sprite.fromImage('images/skullLogo.png');
+    const harvestButton = PIXI.Sprite.fromImage('images/buttonGlossyLong.png');
     harvestButton.anchor.set(0.5);
     harvestButton.style = buttonStyle;
     harvestButton.x = gameWidth / 2;
@@ -111,6 +122,19 @@ function createLabelsAndButtons(){
     harvestButton.on('pointerover', e=>e.currentTarget.alpha = 0.7);
     harvestButton.on('pointerout', e=>e.currentTarget.alpha = 1.0);
     gameScene.addChild(harvestButton);
+
+    //Create the buy tick button
+    const buyTickButton = PIXI.Sprite.fromImage('images/buttonGlossyLong.png');
+    buyTickButton.anchor.set(0.5);
+    buyTickButton.style = buttonStyle;
+    buyTickButton.x = gameWidth / 2;
+    buyTickButton.y = gameHeight - 200;
+    buyTickButton.interactive = true;
+    buyTickButton.buttonMode = true;
+    buyTickButton.on("pointerup",buyTick);
+    buyTickButton.on('pointerover', e=>e.currentTarget.alpha = 0.7);
+    buyTickButton.on('pointerout', e=>e.currentTarget.alpha = 1.0);
+    gameScene.addChild(buyTickButton);
 }
 
 function startGame(){
@@ -123,6 +147,10 @@ function startGame(){
     //Setup variables
     nutrients = 0;
     nutrientsPerClick = 1;
+    ticks = 0;
+    tickCost = 10;
+
+    menuState = 0;
 
     //Create the objects?
 }
@@ -134,4 +162,30 @@ function harvestNutrients(){
     //TODO: Consider adding text updates to a method?
     //Need to update text
     labelNutrients.text = `Nutrients: ${nutrients}`;
+}
+
+//The player can buy ticks to increase their economic gains
+function buyTick(){
+    if(nutrients >= tickCost)
+    {
+        nutrients -= tickCost;
+        ticks += 1;
+        calculateCostTick();
+
+        //TODO: Make this a variables
+        nutrientsPerClick += 1;
+
+        let tick = new Tick(getRandom(100, gameWidth), getRandom(0,200));
+        arrayTicks.push(tick);
+        gameScene.addChild(tick);
+    }
+
+    //TODO: Consider adding text updates to a method?
+    //Need to update text
+    labelNutrients.text = `Nutrients: ${nutrients}`;
+}
+
+function calculateCostTick(){
+    tickCost = Math.floor((10 * Math.pow(1.7, ticks)));
+    console.log(tickCost);
 }
