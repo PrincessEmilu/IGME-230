@@ -25,14 +25,18 @@ let cars = [
  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 */
 
+let classicCars = cars.filter(car => Number(car.year) <= 1970);
+console.log(classicCars);
 
 /*
  2 - Create a new array named 'sortedByYear' that contains the contents of the
  car array, sorted by .year, ascending (oldest to most recent)
  Use Array.sort() on the cars array - and read about writing a comparison function here:
  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
- 
 */
+
+let carsByYear = cars.sort(function(a, b){return a.year - b.year});
+console.log(carsByYear);
 
 
 /*
@@ -51,6 +55,12 @@ let cars = [
  You could do this additional filter on a separate filter on the different lines,
  or as a "one-liner" by chaining the method calls.
 */
+
+let newYearsOnly = 
+	cars.map(car => car.year)
+	.filter(year => year >= 2010);
+
+console.log(newYearsOnly);
 
 debugger;
 </script>
