@@ -30,11 +30,22 @@ const lifeworld = {
     },
 
     getLivingNeighbors(row,col){
-        //TODO
-    },
+		// TODO:
+		// row and col should > than 0, if not return 0
+		
+		// row and col should be < the length of the applicable array, minus 1. If not return 0
+		
+		// count up how many neighbors are alive at N,NE,E,SE,S,SW,W,SE - use this.world[row][col-1] etc
+		
+		// return that sum
+	},
 
     step(){
-        //TODO:
-        this.randomSetup();
+        // TODO:
+        
+        // nested for loop will call getLivingNeighbors() on each cell in this.world
+        // Determine if that cell in the next generation should be alive (see wikipedia life page linked at top)
+        // Put a 1 or zero into the right location in this.worldBuffer
+        // when the looping is done, swap .world and .worldBuffer (use a temp variable to do so)
     }
 }
