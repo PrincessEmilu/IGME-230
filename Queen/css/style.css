@@ -27,6 +27,8 @@ html, body{
     border-style: solid;
     border-color: #462749;
     border-radius: 1em;
+
+    height: 600px;
     
     background-color: black;
 }

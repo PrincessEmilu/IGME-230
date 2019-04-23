@@ -17,6 +17,7 @@ const proteinLabel = document.createElement("p");
 //Buttons
 let buttonHarvest = document.createElement("button");
 let buttonBuyTick = document.createElement("button");
+let buttonBuyLeech = document.createElement("button");
 let buttonBuyHost = document.createElement("button");
 let buttonConsumeHost = document.createElement("button");
 let buttonUpgradeHarvest = document.createElement("button");
@@ -28,8 +29,10 @@ let protein;
 //Resources
 let ticks;
 let tickCost;
+let tickWeight;
 let leeches;
 let leechCost;
+let leechWeight;
 let hosts;
 
 //Gains, Costs, and caps
@@ -51,7 +54,9 @@ function SetUpGame(){
     nutrients = 0;
     protein = 0;
     ticks = 0;
+    tickWeight = 1;
     leeches = 0;
+    leechWeight = 3;
     minions = 0;
     hosts = 1;
     proteinPerHost = 10;
@@ -60,7 +65,7 @@ function SetUpGame(){
 
     //TODO: These should be caluclations
     nutrientsPerSecond = 0;
-    leechCost = 1000;
+    leechCost = 500;
 
     //Calculate costs, caps, and gains
     CalculateCostTick();
@@ -79,6 +84,9 @@ function SetUpGame(){
 
     buttonBuyTick.innerHTML = `Spawn Tick: ${tickCost} nutrients`;
     buttonBuyTick.onclick = BuyTick;
+
+    buttonBuyLeech.innerHTML = `Spawn Leech: ${leechCost}`;
+    buttonBuyLeech.onclick = BuyLeech;
 
     buttonBuyHost.innerHTML = `Infect Host: ${hostCost} ticks`;
     buttonBuyHost.onclick = BuyHost;
@@ -101,14 +109,24 @@ function SetUpGame(){
 
     app.appendChild(buttonHarvest);
     app.appendChild(buttonBuyTick);
+    app.appendChild(buttonBuyLeech);
     app.appendChild(buttonBuyHost);
     app.appendChild(buttonConsumeHost);
     app.appendChild(buttonUpgradeHarvest);
+
+    //Setup gaining nutrients per second
+    setInterval(GainNutrientsPerSecond, 100);
 }
 
 //Gain nutrients and update labels
 function Harvest(){
     nutrients += nutrientsPerClick;
+    UpdateLabels();
+}
+
+//Gain 1/10th of nutrients per second every 100 milliseconds
+function GainNutrientsPerSecond(){
+    nutrients += nutrientsPerSecond/10;
     UpdateLabels();
 }
 
@@ -137,7 +155,23 @@ function BuyHost(){
         CalculateCostTick();
         CalculateCostHost();
         CalculateNutrientsPerClick();
+        CalculateMinions();
         CalculateMaxMinions();
+        UpdateLabels();
+    }
+}
+
+//Buys a leech if affordable
+function BuyLeech(){
+    //TODO: Change 3 to a variable at some point
+    if(nutrients > leechCost && minions + leechWeight < maxMinions)
+    {
+        nutrients -= leechCost;
+        leeches += 1;
+
+        CalculateCostLeech();
+        CalculateNutrientsPerSecond();
+        CalculateMinions();
         UpdateLabels();
     }
 }
@@ -167,12 +201,13 @@ function ConsumeHost(){
 
 //Updates all of the labels. Called whenever something happens that requries recalculations.
 function UpdateLabels(){
-    nutrientsLabel.innerHTML = `Nutrients: ${nutrients}`;
+    nutrientsLabel.innerHTML = `Nutrients: ${Math.floor(nutrients)}`;
     minionsLabel.innerHTML = `Minions: ${minions}/${maxMinions}`;
     hostsLabel.innerHTML = `Hosts: ${hosts}`;
     proteinLabel.innerHTML = `Protein: ${protein}`;
 
     buttonBuyTick.innerHTML = `Spawn Tick: ${tickCost} nutrients`;
+    buttonBuyLeech.innerHTML = `Spawn Leech: ${leechCost}`;
     buttonBuyHost.innerHTML = `Infect Host: ${hostCost} ticks`;
     buttonUpgradeHarvest.innerHTML = `Upgrade Harvest: ${upgradeHarvestCost} protein`;
 
@@ -199,8 +234,8 @@ function LevelUpHarvest(){
 
 //Calculates current minions
 function CalculateMinions(){
-    //TODO: Implement "weight" to the different units.
-    minions = ticks + leeches;
+    
+    minions = (ticks * tickWeight) + (leeches * leechWeight);
 }
 //Calculates max minions
 function CalculateMaxMinions(){
@@ -212,10 +247,19 @@ function CalculateNutrientsPerClick(){
     nutrientsPerClick = (1 + ticks) * levelHarvest;
 }
 
+//Calculates nutrients per second
+function CalculateNutrientsPerSecond(){
+    nutrientsPerSecond = 5 * leeches;
+}
+
 //Calculates the cost of a tick.
 function CalculateCostTick(){
     tickCost = Math.floor((10 * Math.pow(1.2, ticks)));
-    console.log(tickCost);
+}
+
+//Calculate cost of leech
+function CalculateCostLeech(){
+    leechCost = Math.floor((500 * Math.pow(1.7, leeches)));
 }
 
 //Calculates the cost of a new host
