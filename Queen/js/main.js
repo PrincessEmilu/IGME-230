@@ -28,13 +28,18 @@ let protein;
 //Resources
 let ticks;
 let tickCost;
+let leeches;
+let leechCost;
 let hosts;
 
 //Gains, Costs, and caps
 let nutrientsPerClick;
+let nutrientsPerSecond;
 let proteinPerHost;
 let hostCost;
+let minions;
 let maxMinions;
+
 let levelHarvest;
 let upgradeHarvestCost;
 
@@ -46,14 +51,21 @@ function SetUpGame(){
     nutrients = 0;
     protein = 0;
     ticks = 0;
+    leeches = 0;
+    minions = 0;
     hosts = 1;
     proteinPerHost = 10;
 
     levelHarvest = 1;
 
+    //TODO: These should be caluclations
+    nutrientsPerSecond = 0;
+    leechCost = 1000;
+
     //Calculate costs, caps, and gains
     CalculateCostTick();
     CalculateCostHost();
+    CalculateMinions();
     CalculateMaxMinions();
     CalculateCostHarvest();
     CalculateNutrientsPerClick();
@@ -102,12 +114,13 @@ function Harvest(){
 
 //Buy a tick if the player has capacity and currency for one
 function BuyTick(){
-    if(nutrients >= tickCost && ticks < maxMinions)
+    if(nutrients >= tickCost && minions < maxMinions)
     {
         ticks += 1;
         nutrients -= tickCost;
 
         //Update labels and calculate new values
+        CalculateMinions();
         CalculateCostTick();
         CalculateNutrientsPerClick();
         UpdateLabels();
@@ -139,10 +152,12 @@ function ConsumeHost(){
         CalculateCostHost();
 
         //Adjusts ticks if necesary
+        //TODO: Logic for removing certain units in a priority
         CalculateMaxMinions();
         if(ticks > maxMinions){
             ticks = maxMinions;
             CalculateNutrientsPerClick();
+            CalculateMinions();
         }
 
         //Finally update the labels
@@ -153,7 +168,7 @@ function ConsumeHost(){
 //Updates all of the labels. Called whenever something happens that requries recalculations.
 function UpdateLabels(){
     nutrientsLabel.innerHTML = `Nutrients: ${nutrients}`;
-    minionsLabel.innerHTML = `Minions: ${ticks}/${maxMinions}`;
+    minionsLabel.innerHTML = `Minions: ${minions}/${maxMinions}`;
     hostsLabel.innerHTML = `Hosts: ${hosts}`;
     proteinLabel.innerHTML = `Protein: ${protein}`;
 
@@ -180,6 +195,12 @@ function LevelUpHarvest(){
         CalculateCostHarvest();
         UpdateLabels();
     }
+}
+
+//Calculates current minions
+function CalculateMinions(){
+    //TODO: Implement "weight" to the different units.
+    minions = ticks + leeches;
 }
 //Calculates max minions
 function CalculateMaxMinions(){
