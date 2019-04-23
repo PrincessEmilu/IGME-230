@@ -33,12 +33,30 @@ html, body{
     background-color: black;
 }
 
+#statsDisplay{
+    height: 50%;
+}
+#menuCategories{
+    border-style: solid;
+    border-color: #462749;
+}
 #menuCategories > button{
     background-color: #b666d2;
+
+    color: white;
+    border-color: #462749;
+
+    width: 25%;
+    height: 3em;
 }
 
 #contextButtons button{
+    color: white;
+
+    width: 25%;
+    height: 5em;
     background-color: #b666d2;
+    border-color: white;
     border-radius: 1em;
 }
 

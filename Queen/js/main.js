@@ -68,6 +68,10 @@ function SetUpGame(){
     upgradeButtons = document.querySelector("#upgrades");
     hostButtons = document.querySelector("#hosts");
 
+    //Hides display of several containers
+    hostButtons.style.display = "none";
+    upgradeButtons.style.display = "none";
+
     //Set variables
     nutrients = 0;
     protein = 0;
