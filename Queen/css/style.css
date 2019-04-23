@@ -33,6 +33,15 @@ html, body{
     background-color: black;
 }
 
+#menuCategories > button{
+    background-color: #b666d2;
+}
+
+#contextButtons button{
+    background-color: #b666d2;
+    border-radius: 1em;
+}
+
 .grid{
     display:grid;
 

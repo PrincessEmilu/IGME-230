@@ -5,8 +5,15 @@ window.onload = function(){
     SetUpGame();
 };
 
-//Declare variables
+//Declare variables//
+
+//Gets the game containers
 let app;
+let statsDisplay;
+let menuButtons;
+let unitButtons;
+let upgradeButtons;
+let hostButtons;
 
 //Labels
 const nutrientsLabel = document.createElement("p");
@@ -14,13 +21,19 @@ const minionsLabel = document.createElement("p");
 const hostsLabel = document.createElement("p");
 const proteinLabel = document.createElement("p");
 
-//Buttons
+//Buttons//
+//Contextual
 let buttonHarvest = document.createElement("button");
 let buttonBuyTick = document.createElement("button");
 let buttonBuyLeech = document.createElement("button");
 let buttonBuyHost = document.createElement("button");
 let buttonConsumeHost = document.createElement("button");
 let buttonUpgradeHarvest = document.createElement("button");
+
+//Menu buttons
+let buttonUnits = document.createElement("button");
+let buttonUpgrades = document.createElement("button");
+let buttonHosts = document.createElement("button");
 
 //Currency
 let nutrients;
@@ -47,8 +60,13 @@ let levelHarvest;
 let upgradeHarvestCost;
 
 function SetUpGame(){
-    //Gets a reference to the game container
+    //Gets a reference to the game container(s)
     app  = document.querySelector("#gameContainer");
+    statsDisplay = document.querySelector("#statsDisplay");
+    menuButtons = document.querySelector("#menuCategories");
+    unitButtons = document.querySelector("#units");
+    upgradeButtons = document.querySelector("#upgrades");
+    hostButtons = document.querySelector("#hosts");
 
     //Set variables
     nutrients = 0;
@@ -92,22 +110,35 @@ function SetUpGame(){
     buttonUpgradeHarvest.innerHTML = `Upgrade Harvest: ${upgradeHarvestCost} protein`;
     buttonUpgradeHarvest.onclick = LevelUpHarvest;
 
-    //Append elements to the game container
-    app.appendChild(nutrientsLabel);
-    app.appendChild(minionsLabel);
-    app.appendChild(hostsLabel);
-    app.appendChild(proteinLabel);
+    buttonUnits.innerHTML = "Units";
+    buttonHosts.innerHTML = "Hosts";
+    buttonUpgrades.innerHTML = "Upgrades";
+
+    //Append elements to the statsDisplay container
+    statsDisplay.appendChild(nutrientsLabel);
+    statsDisplay.appendChild(minionsLabel);
+    statsDisplay.appendChild(hostsLabel);
+    statsDisplay.appendChild(proteinLabel);
 
     //Hides certain elements until certain triggers have occured.
     hostsLabel.style.display = "none";
     proteinLabel.style.display = "none";
 
+    //TODO: Figure out where the heck the harvest button goes!
     app.appendChild(buttonHarvest);
-    app.appendChild(buttonBuyTick);
-    app.appendChild(buttonBuyLeech);
-    app.appendChild(buttonBuyHost);
-    app.appendChild(buttonConsumeHost);
-    app.appendChild(buttonUpgradeHarvest);
+
+    unitButtons.appendChild(buttonBuyTick);
+    unitButtons.appendChild(buttonBuyLeech);
+
+    hostButtons.appendChild(buttonBuyHost);
+    hostButtons.appendChild(buttonConsumeHost);
+
+    upgradeButtons.appendChild(buttonUpgradeHarvest);
+
+
+    menuButtons.appendChild(buttonUnits);
+    menuButtons.appendChild(buttonUpgrades);
+    menuButtons.appendChild(buttonHosts);
 
     //Setup gaining nutrients per second
     setInterval(GainNutrientsPerSecond, 100);
