@@ -67,13 +67,8 @@ function SetUpGame(){
     nutrientsPerSecond = 0;
     leechCost = 500;
 
-    //Calculate costs, caps, and gains
-    CalculateCostTick();
-    CalculateCostHost();
-    CalculateMinions();
-    CalculateMaxMinions();
-    CalculateCostHarvest();
-    CalculateNutrientsPerClick();
+    //Calculate costs, caps, and gains etc.
+    PerformCalculations();
 
     //Set text of the labels
     UpdateLabels();
@@ -138,9 +133,7 @@ function BuyTick(){
         nutrients -= tickCost;
 
         //Update labels and calculate new values
-        CalculateMinions();
-        CalculateCostTick();
-        CalculateNutrientsPerClick();
+        PerformCalculations();
         UpdateLabels();
     }
 }
@@ -152,11 +145,7 @@ function BuyHost(){
         hosts += 1;
 
         //Calculate new values and update labels
-        CalculateCostTick();
-        CalculateCostHost();
-        CalculateNutrientsPerClick();
-        CalculateMinions();
-        CalculateMaxMinions();
+        PerformCalculations();
         UpdateLabels();
     }
 }
@@ -169,9 +158,7 @@ function BuyLeech(){
         nutrients -= leechCost;
         leeches += 1;
 
-        CalculateCostLeech();
-        CalculateNutrientsPerSecond();
-        CalculateMinions();
+        PerformCalculations();
         UpdateLabels();
     }
 }
@@ -183,15 +170,14 @@ function ConsumeHost(){
     if(hosts > 1){
         hosts -= 1;
         protein += proteinPerHost;
-        CalculateCostHost();
+        PerformCalculations();
 
         //Adjusts ticks if necesary
         //TODO: Logic for removing certain units in a priority
-        CalculateMaxMinions();
+        PerformCalculations();
         if(ticks > maxMinions){
             ticks = maxMinions;
-            CalculateNutrientsPerClick();
-            CalculateMinions();
+            PerformCalculations();
         }
 
         //Finally update the labels
@@ -226,48 +212,7 @@ function LevelUpHarvest(){
         protein -= upgradeHarvestCost;
         levelHarvest += 1;
 
-        CalculateNutrientsPerClick();
-        CalculateCostHarvest();
+        PerformCalculations();
         UpdateLabels();
     }
-}
-
-//Calculates current minions
-function CalculateMinions(){
-    
-    minions = (ticks * tickWeight) + (leeches * leechWeight);
-}
-//Calculates max minions
-function CalculateMaxMinions(){
-    maxMinions = hosts * 50;
-}
-
-//Calculates what player earns from harvest button
-function CalculateNutrientsPerClick(){
-    nutrientsPerClick = (1 + ticks) * levelHarvest;
-}
-
-//Calculates nutrients per second
-function CalculateNutrientsPerSecond(){
-    nutrientsPerSecond = 5 * leeches;
-}
-
-//Calculates the cost of a tick.
-function CalculateCostTick(){
-    tickCost = Math.floor((10 * Math.pow(1.2, ticks)));
-}
-
-//Calculate cost of leech
-function CalculateCostLeech(){
-    leechCost = Math.floor((500 * Math.pow(1.7, leeches)));
-}
-
-//Calculates the cost of a new host
-function CalculateCostHost(){
-    hostCost = Math.floor((20 * Math.pow(1.4, hosts - 1)));
-}
-
-//Calculate cost of harvest upgrades
-function CalculateCostHarvest(){
-    upgradeHarvestCost = Math.floor((5 * Math.pow(1.4, levelHarvest - 1)));
 }
