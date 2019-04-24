@@ -25,7 +25,7 @@ html, body{
 
 /*BEGIN GAME STYLES*/
 
-.minion{
+#gameWorld .minion{
     position: relative;
 }
 
@@ -47,8 +47,13 @@ html, body{
 }
 
 #statsDisplay{
+    position: absolute;
     padding: 1em;
-    line-height: 1em;
+    line-height: 0.5em;
+    z-index: 1000;
+
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 1em;
 }
 #menuCategories{
     grid-row-start: 2;
