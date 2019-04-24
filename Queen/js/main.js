@@ -64,6 +64,9 @@ let maxMinions;
 let levelHarvest;
 let upgradeHarvestCost;
 
+//Holds the graphical representations of minions
+let tickArray = [];
+
 function SetUpGame(){
     //Gets a reference to the game container(s)
     app  = document.querySelector("#gameContainer");
@@ -181,24 +184,31 @@ function BuyTick(){
 
         //Create the graphical representation of the little guy
         let newTick = document.createElement("img");
+        newTick.minionType = "tick";
         newTick.src = "media/bug1.png";
         newTick.setAttribute("class","minion");
-        newTick.style.left = "1px";
-        newTick.style.top = "175px";
+        newTick.style.left = Math.random() * 1000 + "px";
+        newTick.style.top = Math.random() * 1000 + "px";
         newTick.style.maxHeight = "30px";
         newTick.style.maxWidth = "30px";
 
         gameWorld.appendChild(newTick);
+        tickArray.push(newTick);
 
 
     }
 }
 
+//TODO: Player can soft-lock if they fill up their army with leeches! Fix that somehow-
+//Maybe allow host-buying with leeches? Maybe...
 //Buys a host if player has the currency
 function BuyHost(){
     if(ticks >= hostCost){
         ticks -= hostCost;
         hosts += 1;
+
+        //Removes ticks from the display
+        RemoveTicks(hostCost);
 
         //Calculate new values and update labels
         PerformCalculations();
@@ -294,5 +304,13 @@ function ChangeMenu(e){
         else{
             currentMenu.style.display = "none";
         }
+    }
+}
+
+//Removes minions from list/page
+function RemoveTicks(numberToRemove=1){
+    for(let i = 0; i < numberToRemove; i++)
+    {
+        gameWorld.removeChild(tickArray.pop());
     }
 }
