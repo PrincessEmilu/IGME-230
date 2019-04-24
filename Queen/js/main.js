@@ -17,6 +17,12 @@ let unitsButtons;
 let upgradesButtons;
 let hostsButtons;
 
+//Bounding variables for spawning minions
+let minX;
+let maxX;
+let minY;
+let maxY;
+
 //Menu/state variables
 let currentMenu;
 
@@ -68,6 +74,7 @@ let upgradeHarvestCost;
 let tickArray = [];
 
 function SetUpGame(){
+
     //Gets a reference to the game container(s)
     app  = document.querySelector("#gameContainer");
     gameWorld = document.querySelector("#gameWorld");
@@ -82,6 +89,13 @@ function SetUpGame(){
     //Hides display of several containers
     hostsButtons.style.display = "none";
     upgradesButtons.style.display = "none";
+
+    //DEBUG: Logs app position?
+    let rect = gameWorld.getBoundingClientRect();
+    minX = rect.left;
+    maxX = rect.right - 40;
+    minY = rect.top;
+    maxY = rect.bottom - 45;
 
     //Set variables
     nutrients = 0;
@@ -187,8 +201,8 @@ function BuyTick(){
         newTick.minionType = "tick";
         newTick.src = "media/bug1.png";
         newTick.setAttribute("class","minion");
-        newTick.style.left = Math.random() * 1000 + "px";
-        newTick.style.top = Math.random() * 1000 + "px";
+        newTick.style.left = (Math.random() * (maxX - minX) + minX) + "px";
+        newTick.style.top = (Math.random() * (maxY - minY) + minY) + "px";
         newTick.style.maxHeight = "30px";
         newTick.style.maxWidth = "30px";
 
