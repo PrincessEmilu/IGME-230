@@ -11,9 +11,13 @@ window.onload = function(){
 let app;
 let statsDisplay;
 let menuButtons;
-let unitButtons;
-let upgradeButtons;
-let hostButtons;
+
+let unitsButtons;
+let upgradesButtons;
+let hostsButtons;
+
+//Menu/state variables
+let currentMenu;
 
 //Labels
 const nutrientsLabel = document.createElement("p");
@@ -64,13 +68,15 @@ function SetUpGame(){
     app  = document.querySelector("#gameContainer");
     statsDisplay = document.querySelector("#statsDisplay");
     menuButtons = document.querySelector("#menuCategories");
-    unitButtons = document.querySelector("#units");
-    upgradeButtons = document.querySelector("#upgrades");
-    hostButtons = document.querySelector("#hosts");
+    unitsButtons = document.querySelector("#units");
+    upgradesButtons = document.querySelector("#upgrades");
+    hostsButtons = document.querySelector("#hosts");
+
+    currentMenu = unitsButtons;
 
     //Hides display of several containers
-    hostButtons.style.display = "none";
-    upgradeButtons.style.display = "none";
+    hostsButtons.style.display = "none";
+    upgradesButtons.style.display = "none";
 
     //Set variables
     nutrients = 0;
@@ -115,8 +121,13 @@ function SetUpGame(){
     buttonUpgradeHarvest.onclick = LevelUpHarvest;
 
     buttonUnits.innerHTML = "Units";
+    buttonUnits.onclick = ChangeMenu;
+
     buttonHosts.innerHTML = "Hosts";
+    buttonHosts.onclick = ChangeMenu;
+
     buttonUpgrades.innerHTML = "Upgrades";
+    buttonUpgrades.onclick = ChangeMenu;
 
     //Append elements to the statsDisplay container
     statsDisplay.appendChild(nutrientsLabel);
@@ -129,16 +140,15 @@ function SetUpGame(){
     proteinLabel.style.display = "none";
 
     //TODO: Figure out where the heck the harvest button goes!
-    app.appendChild(buttonHarvest);
+    //app.appendChild(buttonHarvest);
 
-    unitButtons.appendChild(buttonBuyTick);
-    unitButtons.appendChild(buttonBuyLeech);
+    unitsButtons.appendChild(buttonBuyTick);
+    unitsButtons.appendChild(buttonBuyLeech);
 
-    hostButtons.appendChild(buttonBuyHost);
-    hostButtons.appendChild(buttonConsumeHost);
+    hostsButtons.appendChild(buttonBuyHost);
+    hostsButtons.appendChild(buttonConsumeHost);
 
-    upgradeButtons.appendChild(buttonUpgradeHarvest);
-
+    upgradesButtons.appendChild(buttonUpgradeHarvest);
 
     menuButtons.appendChild(buttonUnits);
     menuButtons.appendChild(buttonUpgrades);
@@ -249,5 +259,29 @@ function LevelUpHarvest(){
 
         PerformCalculations();
         UpdateLabels();
+    }
+}
+
+//Change the contextual menu
+function ChangeMenu(e){
+    let searchString = e.target.innerHTML.toLowerCase();
+    searchString += "Buttons";
+    searchString = eval(searchString)
+
+    if(currentMenu != searchString){
+        //Hide the current menu
+        currentMenu.style.display = "none";
+
+        //Show the clicked-on menu
+        currentMenu = searchString;
+        currentMenu.style.display = "flex";
+    }
+    else{
+        if(currentMenu.style.display == "none"){
+            currentMenu.style.display = "flex";
+        }
+        else{
+            currentMenu.style.display = "none";
+        }
     }
 }

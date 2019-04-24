@@ -50,11 +50,27 @@ html, body{
     height: 3em;
 }
 
+#contextButtons{
+    border-style: solid;
+    border-color: #462749;
+
+    background-color: #8332ac;
+
+    /*Absolute height might not be what I want in the long run*/
+    height: 125px;
+
+    display: flex;
+    justify-content: space-around;
+
+}
 #contextButtons button{
     color: white;
 
-    width: 25%;
-    height: 5em;
+    width: 175px; 
+    height: 100px;
+
+    margin: 1em;
+
     background-color: #b666d2;
     border-color: white;
     border-radius: 1em;
