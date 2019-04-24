@@ -23,6 +23,12 @@ html, body{
     background-color: #8332ac;
 }
 
+/*BEGIN GAME STYLES*/
+
+.minion{
+    position: relative;
+}
+
 #gameContainer{
     display: grid;
     grid-template-rows: 3fr 1fr;
@@ -56,16 +62,6 @@ html, body{
     width: 25%;
     height: 3em;
 }
-
-.selectedMenu{
-    background-color: lightyellow;
-
-    color: #462749;
-
-    width: 25%;
-    height: 3em;
-}
-
 #contextButtons{
     border-style: solid;
     border-color: #462749;
@@ -94,6 +90,8 @@ html, body{
     border-radius: 1em;
     border-width: 0.5em;
 }
+
+/*END GAME STYLES*/
 
 .grid{
     display:grid;

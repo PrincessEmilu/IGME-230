@@ -16,9 +16,7 @@ function PerformCalculations() {
 
     //Calculates nutrients per second
     nutrientsPerSecond = 5 * leeches;
-
-
-
+    
     //Cost Calculations
     //Calculates the cost of a tick.
     tickCost = Math.floor((10 * Math.pow(1.2, ticks)));

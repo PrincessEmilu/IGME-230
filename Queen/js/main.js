@@ -9,6 +9,7 @@ window.onload = function(){
 
 //Gets the game containers
 let app;
+let gameWorld;
 let statsDisplay;
 let menuButtons;
 
@@ -66,6 +67,7 @@ let upgradeHarvestCost;
 function SetUpGame(){
     //Gets a reference to the game container(s)
     app  = document.querySelector("#gameContainer");
+    gameWorld = document.querySelector("#gameWorld");
     statsDisplay = document.querySelector("#statsDisplay");
     menuButtons = document.querySelector("#menuCategories");
     unitsButtons = document.querySelector("#units");
@@ -90,10 +92,6 @@ function SetUpGame(){
     proteinPerHost = 10;
 
     levelHarvest = 1;
-
-    //TODO: These should be caluclations
-    nutrientsPerSecond = 0;
-    leechCost = 500;
 
     //Calculate costs, caps, and gains etc.
     PerformCalculations();
@@ -180,6 +178,19 @@ function BuyTick(){
         //Update labels and calculate new values
         PerformCalculations();
         UpdateLabels();
+
+        //Create the graphical representation of the little guy
+        let newTick = document.createElement("img");
+        newTick.src = "media/bug1.png";
+        newTick.setAttribute("class","minion");
+        newTick.style.left = "0px";
+        newTick.style.top = "0px;"
+        newTick.style.maxHeight = "60px";
+        newTick.style.maxWidth = "60px";
+
+        gameWorld.appendChild(newTick);
+
+
     }
 }
 
