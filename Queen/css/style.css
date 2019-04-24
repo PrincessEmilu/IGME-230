@@ -24,6 +24,8 @@ html, body{
 }
 
 #gameContainer{
+    display: grid;
+    grid-template-rows: 3fr 1fr;
     border-style: solid;
     border-color: #462749;
     border-radius: 1em;
@@ -33,18 +35,32 @@ html, body{
     background-color: black;
 }
 
+#gameWorld{
+    grid-row-start: 1;
+}
+
 #statsDisplay{
     height: 50%;
 }
 #menuCategories{
+    grid-row-start: 2;
     border-style: solid;
     border-color: #462749;
+    background-color: #b666d2;
 }
 #menuCategories > button{
     background-color: #b666d2;
 
     color: white;
-    border-color: #462749;
+
+    width: 25%;
+    height: 3em;
+}
+
+.selectedMenu{
+    background-color: lightyellow;
+
+    color: #462749;
 
     width: 25%;
     height: 3em;
@@ -53,6 +69,8 @@ html, body{
 #contextButtons{
     border-style: solid;
     border-color: #462749;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
 
     background-color: #8332ac;
 
@@ -72,8 +90,9 @@ html, body{
     margin: 1em;
 
     background-color: #b666d2;
-    border-color: white;
+    border-color: #AA00FF;
     border-radius: 1em;
+    border-width: 0.5em;
 }
 
 .grid{
