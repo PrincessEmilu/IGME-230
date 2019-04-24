@@ -36,6 +36,7 @@ html, body{
     border-color: #462749;
     border-radius: 1em;
 
+    width: 800px;
     height: 600px;
     
     background-color: black;
@@ -46,7 +47,8 @@ html, body{
 }
 
 #statsDisplay{
-    height: 50%;
+    padding: 1em;
+    line-height: 1em;
 }
 #menuCategories{
     grid-row-start: 2;

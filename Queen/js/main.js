@@ -183,8 +183,8 @@ function BuyTick(){
         let newTick = document.createElement("img");
         newTick.src = "media/bug1.png";
         newTick.setAttribute("class","minion");
-        newTick.style.left = "0px";
-        newTick.style.top = "0px;"
+        newTick.style.left ="0px";
+        newTick.style.top ="0px";
         newTick.style.maxHeight = "60px";
         newTick.style.maxWidth = "60px";
 
