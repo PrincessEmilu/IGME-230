@@ -40,6 +40,7 @@ let buttonBuyLeech = document.createElement("button");
 let buttonBuyHost = document.createElement("button");
 let buttonConsumeHost = document.createElement("button");
 let buttonUpgradeHarvest = document.createElement("button");
+let buttonUpgradeLeech = document.createElement("button");
 
 //Menu buttons
 let buttonUnits = document.createElement("button");
@@ -69,6 +70,8 @@ let maxMinions;
 
 let levelHarvest;
 let upgradeHarvestCost;
+let levelLeech;
+let upgradeLeechCost;
 
 //Holds the graphical representations of minions
 let tickArray = [];
@@ -109,6 +112,7 @@ function SetUpGame(){
     proteinPerHost = 10;
 
     levelHarvest = 1;
+    levelLeech = 1;
 
     //Calculate costs, caps, and gains etc.
     PerformCalculations();
@@ -134,6 +138,9 @@ function SetUpGame(){
 
     buttonUpgradeHarvest.innerHTML = `Upgrade Harvest: ${upgradeHarvestCost} protein`;
     buttonUpgradeHarvest.onclick = LevelUpHarvest;
+
+    buttonUpgradeLeech.innerHTML = `Upgrade Leech: ${upgradeLeechCost} protein`;
+    buttonUpgradeLeech.onclick = LevelUpLeech;
 
     buttonUnits.innerHTML = "Units";
     buttonUnits.onclick = ChangeMenu;
@@ -164,6 +171,7 @@ function SetUpGame(){
     hostsButtons.appendChild(buttonConsumeHost);
 
     upgradesButtons.appendChild(buttonUpgradeHarvest);
+    upgradesButtons.appendChild(buttonUpgradeLeech);
 
     menuButtons.appendChild(buttonUnits);
     menuButtons.appendChild(buttonUpgrades);
@@ -232,7 +240,6 @@ function BuyHost(){
 
 //Buys a leech if affordable
 function BuyLeech(){
-    //TODO: Change 3 to a variable at some point
     if(nutrients > leechCost && minions + leechWeight < maxMinions)
     {
         nutrients -= leechCost;
@@ -276,9 +283,10 @@ function UpdateLabels(){
     buttonBuyLeech.innerHTML = `Spawn Leech: ${leechCost}`;
     buttonBuyHost.innerHTML = `Infect Host: ${hostCost} ticks`;
     buttonUpgradeHarvest.innerHTML = `Upgrade Harvest: ${upgradeHarvestCost} protein`;
+    buttonUpgradeLeech.innerHTML = `Upgrade Leech: ${upgradeLeechCost} protein`;
 
     //This section here will display new info as the player advances
-    if(ticks >= 12 && hostsLabel.style.display == "none")
+    if(minions >= 12 && hostsLabel.style.display == "none")
     {
         hostsLabel.style.display = "block";
         proteinLabel.style.display = "block";
@@ -291,6 +299,18 @@ function LevelUpHarvest(){
     {
         protein -= upgradeHarvestCost;
         levelHarvest += 1;
+
+        PerformCalculations();
+        UpdateLabels();
+    }
+}
+
+//Level up leech efficiency
+function LevelUpLeech(){
+    if(protein >= upgradeLeechCost)
+    {
+        protein -= upgradeLeechCost;
+        levelLeech += 1;
 
         PerformCalculations();
         UpdateLabels();

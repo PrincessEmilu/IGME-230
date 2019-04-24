@@ -15,7 +15,7 @@ function PerformCalculations() {
     nutrientsPerClick = (1 + ticks) * levelHarvest;
 
     //Calculates nutrients per second
-    nutrientsPerSecond = 5 * leeches;
+    nutrientsPerSecond = 5 * levelLeech * leeches;
     
     //Cost Calculations
     //Calculates the cost of a tick.
@@ -29,4 +29,7 @@ function PerformCalculations() {
 
     //Calculates cost of upgrading harvest gains
     upgradeHarvestCost = Math.floor((5 * Math.pow(1.4, levelHarvest - 1)));
+
+    //Calculates cost of upgrading leech gains
+    upgradeLeechCost = Math.floor((10 * Math.pow(1.7, levelLeech - 1)));
 }
