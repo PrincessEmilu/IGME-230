@@ -29,9 +29,35 @@ html, body{
     position: absolute;
 }
 
+#buttonHarvest{
+    color: white;
+    text-shadow: 1px 1px black;
+
+    width: 175px; 
+    height: 40px;
+
+    margin-bottom: 0.5em;
+
+    background-color: #b666d2;
+    border-color: white;
+    border-radius: 1em;
+    border-width: 0.25em;
+
+    transition: background-color 500ms;
+}
+
+#buttonHarvest:hover{
+    background-color: #8332ac;
+}
+
+#harvestContainer{
+    display: flex;
+    justify-content: center;
+}
+
 #gameContainer{
     display: grid;
-    grid-template-rows: 3fr 1fr;
+    grid-template-rows: 3fr min-content 1fr;
     border-style: solid;
     border-color: #462749;
     border-radius: 1em;
@@ -55,26 +81,40 @@ html, body{
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 1em;
 }
-#menuCategories{
+#harvestContainer{
     grid-row-start: 2;
+}
+
+#menuCategories{
+    grid-row-start: 3;
     border-style: solid;
     border-color: #462749;
     background-color: #b666d2;
 }
 #menuCategories > button{
     background-color: #b666d2;
+    border-color: black;
 
     color: white;
 
     width: 25%;
     height: 3em;
+
+    transition: background-color 500ms;
 }
+#menuCategories > button:hover{
+    background-color: #8332ac;
+}
+
 #contextButtons{
     border-style: solid;
     border-color: #462749;
     border-bottom-left-radius: 1em;
     border-bottom-right-radius: 1em;
 
+    background-image: url("../media/dark-honeycomb.png");
+    background-repeat: repeat;
+    background-blend-mode: luminosity;
     background-color: #8332ac;
 
     /*Absolute height might not be what I want in the long run*/
@@ -93,9 +133,16 @@ html, body{
     margin: 1em;
 
     background-color: #b666d2;
-    border-color: #AA00FF;
+    border-color: black;
     border-radius: 1em;
     border-width: 0.5em;
+
+    transition: background-color 500ms;
+}
+
+
+#contextButtons button:hover{
+    background-color: #8332ac;
 }
 
 /*END GAME STYLES*/
@@ -302,10 +349,7 @@ a:active{
     }
     .imageSmall{
         display: block;
-
         width: 100%;
-
-        padding: 1em 0;
-        
+        padding: 1em 0;   
     }
 }

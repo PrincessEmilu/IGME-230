@@ -11,6 +11,7 @@ window.onload = function(){
 let app;
 let gameWorld;
 let statsDisplay;
+let harvestContainer;
 let menuButtons;
 
 let unitsButtons;
@@ -68,6 +69,7 @@ let hostCost;
 let minions;
 let maxMinions;
 
+
 let levelHarvest;
 let upgradeHarvestCost;
 let levelLeech;
@@ -82,6 +84,7 @@ function SetUpGame(){
     app  = document.querySelector("#gameContainer");
     gameWorld = document.querySelector("#gameWorld");
     statsDisplay = document.querySelector("#statsDisplay");
+    harvestContainer = document.querySelector("#harvestContainer");
     menuButtons = document.querySelector("#menuCategories");
     unitsButtons = document.querySelector("#units");
     upgradesButtons = document.querySelector("#upgrades");
@@ -97,8 +100,8 @@ function SetUpGame(){
     let rect = gameWorld.getBoundingClientRect();
     minX = rect.left;
     maxX = rect.right - 40;
-    minY = rect.top;
-    maxY = rect.bottom - 45;
+    minY = rect.top + 100;
+    maxY = rect.bottom;
 
     //Set variables
     nutrients = 0;
@@ -122,6 +125,7 @@ function SetUpGame(){
 
     //Set up the buttons
     buttonHarvest.innerHTML = "Harvest";
+    buttonHarvest.setAttribute("id","buttonHarvest");
     buttonHarvest.onclick = Harvest;
 
     buttonBuyTick.innerHTML = `Spawn Tick: ${tickCost} nutrients`;
@@ -161,8 +165,7 @@ function SetUpGame(){
     hostsLabel.style.display = "none";
     proteinLabel.style.display = "none";
 
-    //TODO: Figure out where the heck the harvest button goes!
-    //app.appendChild(buttonHarvest);
+    harvestContainer.appendChild(buttonHarvest);
 
     unitsButtons.appendChild(buttonBuyTick);
     unitsButtons.appendChild(buttonBuyLeech);
