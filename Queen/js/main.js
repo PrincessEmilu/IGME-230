@@ -22,12 +22,6 @@ let unitsButtons;
 let upgradesButtons;
 let hostsButtons;
 
-//Bounding variables for spawning minions
-let minX;
-let maxX;
-let minY;
-let maxY;
-
 //Menu/state variables
 let currentMenu;
 
@@ -83,7 +77,38 @@ let upgradeLeechCost;
 let tickArray = [];
 let leechArray = [];
 
+//LocalStorage keys
+const prefix = "eh8582";
+const nutrientsKey = prefix + "nutrients";
+const proteinKey = prefix + "protein";
+const ticksKey = prefix + "ticks";
+const leechesKey = prefix + "leeches";
+const hostsKey = prefix + "hosts";
+const levelHarvestKey = prefix + "levelHarvest";
+const levelLeechKey = prefix + "levelLeech";
+
+//Audio Assets
+let music = new Howl({
+    src: ['media/giantWyrm.mp3'],
+    loop: true
+});
+
+let hatch = new Howl({
+    src: ['media/hatch1.wav']
+})
+
+let squelch = new Howl({
+    src: ['media/squelch1.wav']
+})
+
+let crunch = new Howl({
+    src: ['media/crunch1.wav']
+})
+
 function setUpGame(){
+
+    //Start music playing
+    music.play();
 
     //Gets a reference to the game container(s)
     app  = document.querySelector("#gameContainer");
@@ -101,13 +126,6 @@ function setUpGame(){
     hostsButtons.style.display = "none";
     upgradesButtons.style.display = "none";
 
-    //Get the game position relative to the screen.
-    let rect = gameWorld.getBoundingClientRect();
-    minX = rect.left;
-    maxX = rect.right;
-    minY = rect.top;
-    maxY = rect.bottom;
-
     //Set variables
     nutrients = 0;
     protein = 0;
@@ -122,41 +140,32 @@ function setUpGame(){
     levelHarvest = 1;
     levelLeech = 1;
 
-    //Calculate costs, caps, and gains etc.
+    //Tries to load save data
+    loadData();
     performCalculations();
-
-    //Set text of the labels
     updateLabels();
+
 
     //Set up the buttons
     buttonHarvest.innerHTML = "Harvest";
     buttonHarvest.setAttribute("id","buttonHarvest");
     buttonHarvest.onclick = harvest;
-
     buttonBuyTick.innerHTML = `Spawn Tick: ${tickCost} nutrients`;
     buttonBuyTick.onclick = buyTick;
-
     buttonBuyLeech.innerHTML = `Spawn Leech: ${leechCost}`;
     buttonBuyLeech.onclick = buyLeech;
-
     buttonBuyHost.innerHTML = `Infect Host: ${hostCost} minions`;
     buttonBuyHost.onclick = buyHost;
-
     buttonConsumeHost.innerHTML = `Consume Host: +${proteinPerHost} protein`;
     buttonConsumeHost.onclick = consumeHost;
-
     buttonUpgradeHarvest.innerHTML = `Upgrade Harvest: ${upgradeHarvestCost} protein`;
     buttonUpgradeHarvest.onclick = levelUpHarvest;
-
     buttonUpgradeLeech.innerHTML = `Upgrade Leech: ${upgradeLeechCost} protein`;
     buttonUpgradeLeech.onclick = levelUpLeech;
-
     buttonUnits.innerHTML = "Units";
     buttonUnits.onclick = changeMenu;
-
     buttonHosts.innerHTML = "Hosts";
     buttonHosts.onclick = changeMenu;
-
     buttonUpgrades.innerHTML = "Upgrades";
     buttonUpgrades.onclick = changeMenu;
 
@@ -165,21 +174,12 @@ function setUpGame(){
     statsDisplay.appendChild(minionsLabel);
     statsDisplay.appendChild(hostsLabel);
     statsDisplay.appendChild(proteinLabel);
-
-    //Hides certain elements until certain triggers have occured.
-    hostsLabel.style.display = "none";
-    proteinLabel.style.display = "none";
-
     harvestContainer.appendChild(buttonHarvest);
-
     unitsButtons.appendChild(buttonBuyTick);
-
     hostsButtons.appendChild(buttonBuyHost);
     hostsButtons.appendChild(buttonConsumeHost);
-
     upgradesButtons.appendChild(buttonUpgradeHarvest);
     upgradesButtons.appendChild(buttonUpgradeLeech);
-
     menuButtons.appendChild(buttonUnits);
 
     //Setup gaining nutrients per second
@@ -202,6 +202,8 @@ function gainNutrientsPerSecond(){
 function buyTick(){
     if(nutrients >= tickCost && minions < maxMinions)
     {
+        hatch.play();
+
         ticks += 1;
         nutrients -= tickCost;
 
@@ -214,8 +216,8 @@ function buyTick(){
         newTick.minionType = "tick";
         newTick.src = "media/bug1.png";
         newTick.setAttribute("class","minion");
-        newTick.style.left = "0px"; //(Math.random() * (maxX - minX) + minX) + 
-        newTick.style.top = "0px";
+        newTick.style.top = Math.random() * 140 + "px";
+        //TODO: Resize image or points deducted!
         newTick.style.maxHeight = "30px";
         newTick.style.maxWidth = "30px";
 
@@ -266,6 +268,8 @@ function buyHost(){
 function buyLeech(){
     if(nutrients > leechCost && minions + leechWeight <= maxMinions)
     {
+        squelch.play();
+
         nutrients -= leechCost;
         leeches += 1;
 
@@ -277,8 +281,8 @@ function buyLeech(){
         newLeech.minionType = "leech";
         newLeech.src = "media/leech1.png";
         newLeech.setAttribute("class","minion");
-        newLeech.style.left = "0px";
-        newLeech.style.top = "0px";
+        newLeech.style.top = Math.random() * 140 + "px";
+        //TODO: Edit size of image outside of code or lose points!!!
         newLeech.style.maxHeight = "30px";
         newLeech.style.maxWidth = "30px";
 
@@ -292,6 +296,7 @@ function buyLeech(){
 //Some minions may have to be removed.
 function consumeHost(){
     if(hosts > 1){
+        crunch.play();
         hosts -= 1;
         protein += proteinPerHost;
         performCalculations();
@@ -328,16 +333,17 @@ function updateLabels(){
         unitsButtons.appendChild(buttonBuyLeech);
     }
     //Shows hosts and protein info, appends hosts button
-    if(minions >= 15 && hostsLabel.style.display == "none")
+    if(minions >= 15 && menuButtons.childNodes.length == 1)
     {
-        hostsLabel.style.display = "block";
-        proteinLabel.style.display = "block";
         menuButtons.appendChild(buttonHosts);
     }
     //Add upgrade menu when host first gained
     if(hosts > 1 && menuButtons.childNodes.length == 2){
         menuButtons.appendChild(buttonUpgrades);
     }
+
+    //Call save data
+    saveData();
 }
 
 //Level up harvest efficiency
@@ -401,5 +407,43 @@ function removeLeeches(numberToRemove=1){
     for(let i = 0; i < numberToRemove; i++)
     {
         gameWorld.removeChild(leechArray.pop());
+    }
+}
+
+//Saves game data to local storage
+function saveData(){
+    localStorage.setItem(ticksKey, ticks);
+    localStorage.setItem(leechesKey,leeches);
+    localStorage.setItem(hostsKey,hosts);
+    localStorage.setItem(levelHarvestKey,levelHarvest);
+    localStorage.setItem(levelLeechKey,levelLeech);
+    localStorage.setItem(nutrientsKey,nutrients);
+    localStorage.setItem(proteinKey,protein);
+}
+
+//Loads data from localStorage
+function loadData(){
+    const storedTicks = localStorage.getItem(ticksKey);
+    const storedLeeches = localStorage.getItem(leechesKey);
+    console.log(storedLeeches);
+    const storedHosts = localStorage.getItem(hostsKey);
+    const storedLevelHarvest = localStorage.getItem(levelHarvestKey);
+    const storedLevelLeech = localStorage.getItem(levelLeechKey);
+    console.log(storedLevelLeech);
+    const storedNutrients = localStorage.getItem(nutrientsKey);
+    const storedProtein = localStorage.getItem(proteinKey);
+
+    //If data is found, set the variables.
+    if(storedNutrients){
+        ticks = storedTicks;
+        console.log(ticks);
+        leeches = storedLeeches;
+        console.log(leeches);
+        hosts = storedHosts;
+        levelHarvest = storedLevelHarvest;
+        levelLeech = storedLevelLeech;
+        console.log(levelLeech);
+        nutrients = storedNutrients;
+        protein = storedProtein;
     }
 }
