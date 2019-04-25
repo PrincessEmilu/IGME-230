@@ -97,7 +97,7 @@ function SetUpGame(){
     hostsButtons.style.display = "none";
     upgradesButtons.style.display = "none";
 
-    //DEBUG: Logs app position?
+    //Get the game position relative to the screen.
     let rect = gameWorld.getBoundingClientRect();
     minX = rect.left;
     maxX = rect.right;
@@ -210,8 +210,8 @@ function BuyTick(){
         newTick.minionType = "tick";
         newTick.src = "media/bug1.png";
         newTick.setAttribute("class","minion");
-        newTick.style.left = (Math.random() * (maxX - minX) + minX) + "px";
-        newTick.style.top = (Math.random() * (maxY - minY) + minY) + "px";
+        newTick.style.left = "0px"; //(Math.random() * (maxX - minX) + minX) + 
+        newTick.style.top = "0px";
         newTick.style.maxHeight = "30px";
         newTick.style.maxWidth = "30px";
 
@@ -275,8 +275,8 @@ function BuyLeech(){
         newLeech.minionType = "leech";
         newLeech.src = "media/leech1.png";
         newLeech.setAttribute("class","minion");
-        newLeech.style.left = (Math.random() * (maxX - minX) + minX) + "px";
-        newLeech.style.top = (Math.random() * (maxY - minY) + minY) + "px";
+        newLeech.style.left = "0px";
+        newLeech.style.top = "0px";
         newLeech.style.maxHeight = "30px";
         newLeech.style.maxWidth = "30px";
 
