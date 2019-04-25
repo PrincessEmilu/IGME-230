@@ -4,13 +4,9 @@
 window.onload = function(){
     setUpGame();
 };
-
-
-//TODO: Implement local storage for saving progress
 //TODO: Implement an ES6 class of my own creation
-//TODO: Sounds to enhance the experience
-//Declare variables//
 
+//Declare variables//
 //Gets the game containers
 let app;
 let gameWorld;
@@ -105,6 +101,10 @@ let crunch = new Howl({
     src: ['media/crunch1.wav']
 })
 
+let scream = new Howl({
+    src: ['media/scream1.wav']
+})
+
 function setUpGame(){
 
     //Start music playing
@@ -139,12 +139,6 @@ function setUpGame(){
 
     levelHarvest = 1;
     levelLeech = 1;
-
-    //Tries to load save data
-    loadData();
-    performCalculations();
-    updateLabels();
-
 
     //Set up the buttons
     buttonHarvest.innerHTML = "Harvest";
@@ -181,6 +175,11 @@ function setUpGame(){
     upgradesButtons.appendChild(buttonUpgradeHarvest);
     upgradesButtons.appendChild(buttonUpgradeLeech);
     menuButtons.appendChild(buttonUnits);
+
+    //Tries to load save data
+    loadData();
+    performCalculations();
+    updateLabels();
 
     //Setup gaining nutrients per second
     setInterval(gainNutrientsPerSecond, 100);
@@ -256,6 +255,7 @@ function buyHost(){
         }
 
         //Finally, give the player the host and update displays/values
+        scream.play();
         hosts += 1;
 
         //Calculate new values and update labels
@@ -425,25 +425,60 @@ function saveData(){
 function loadData(){
     const storedTicks = localStorage.getItem(ticksKey);
     const storedLeeches = localStorage.getItem(leechesKey);
-    console.log(storedLeeches);
     const storedHosts = localStorage.getItem(hostsKey);
     const storedLevelHarvest = localStorage.getItem(levelHarvestKey);
     const storedLevelLeech = localStorage.getItem(levelLeechKey);
-    console.log(storedLevelLeech);
     const storedNutrients = localStorage.getItem(nutrientsKey);
     const storedProtein = localStorage.getItem(proteinKey);
 
     //If data is found, set the variables.
     if(storedNutrients){
-        ticks = storedTicks;
-        console.log(ticks);
-        leeches = storedLeeches;
-        console.log(leeches);
-        hosts = storedHosts;
-        levelHarvest = storedLevelHarvest;
-        levelLeech = storedLevelLeech;
-        console.log(levelLeech);
-        nutrients = storedNutrients;
-        protein = storedProtein;
+        ticks = Number(storedTicks);
+        leeches = Number(storedLeeches);
+        hosts = Number(storedHosts);
+        levelHarvest = Number(storedLevelHarvest);
+        levelLeech = Number(storedLevelLeech);
+        nutrients = Number(storedNutrients);
+        protein = Number(storedProtein);
+
+        //Appends normally hidden buttons if appropriate; different logic than in-game
+        if(leeches > 0 || protein > 0 || hosts > 1){
+            unitsButtons.appendChild(buttonBuyLeech);
+            menuButtons.appendChild(buttonHosts);
+            menuButtons.appendChild(buttonUpgrades);
+        }
+
+        //Add ticks to tick array
+        for(let i = 0; i < ticks; i++){
+            //Create the graphical representation of the little guy
+            let newTick = document.createElement("img");
+            newTick.minionType = "tick";
+            newTick.src = "media/bug1.png";
+            newTick.setAttribute("class","minion");
+            newTick.style.top = Math.random() * 140 + "px";
+            //TODO: Resize image or points deducted!
+            newTick.style.maxHeight = "30px";
+            newTick.style.maxWidth = "30px";
+
+            gameWorld.appendChild(newTick);
+            tickArray.push(newTick);
+        }
+
+        //Add leeches to leech array
+        for(let i = 0; i < leeches; i ++){
+    
+            //Create the graphical representation of the little guy
+            let newLeech = document.createElement("img");
+            newLeech.minionType = "leech";
+            newLeech.src = "media/leech1.png";
+            newLeech.setAttribute("class","minion");
+            newLeech.style.top = Math.random() * 140 + "px";
+            //TODO: Edit size of image outside of code or lose points!!!
+            newLeech.style.maxHeight = "30px";
+            newLeech.style.maxWidth = "30px";
+    
+            gameWorld.appendChild(newLeech);
+            leechArray.push(newLeech);
+        }
     }
 }
