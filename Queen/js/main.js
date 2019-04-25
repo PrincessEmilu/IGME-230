@@ -77,6 +77,7 @@ let upgradeLeechCost;
 
 //Holds the graphical representations of minions
 let tickArray = [];
+let leechArray = [];
 
 function SetUpGame(){
 
@@ -99,9 +100,9 @@ function SetUpGame(){
     //DEBUG: Logs app position?
     let rect = gameWorld.getBoundingClientRect();
     minX = rect.left;
-    maxX = rect.right - 40;
+    maxX = rect.right;
     minY = rect.top;
-    maxY = rect.bottom - 90;
+    maxY = rect.bottom;
 
     //Set variables
     nutrients = 0;
@@ -240,7 +241,7 @@ function BuyHost(){
             while(ticks < remainingCost && remainingCost > 0){
                 leeches -= 1;
                 remainingCost -= leechWeight;
-                //RemoveLeeches();
+                RemoveLeeches(1);
             }
             //Either cost is paid off, or the player now has enough ticks to foot the bill
             if(remainingCost > 0)
@@ -261,13 +262,26 @@ function BuyHost(){
 
 //Buys a leech if affordable
 function BuyLeech(){
-    if(nutrients > leechCost && minions + leechWeight < maxMinions)
+    if(nutrients > leechCost && minions + leechWeight <= maxMinions)
     {
         nutrients -= leechCost;
         leeches += 1;
 
         PerformCalculations();
         UpdateLabels();
+
+        //Create the graphical representation of the little guy
+        let newLeech = document.createElement("img");
+        newLeech.minionType = "leech";
+        newLeech.src = "media/leech1.png";
+        newLeech.setAttribute("class","minion");
+        newLeech.style.left = (Math.random() * (maxX - minX) + minX) + "px";
+        newLeech.style.top = (Math.random() * (maxY - minY) + minY) + "px";
+        newLeech.style.maxHeight = "30px";
+        newLeech.style.maxWidth = "30px";
+
+        gameWorld.appendChild(newLeech);
+        leechArray.push(newLeech);
     }
 }
 
@@ -372,10 +386,18 @@ function ChangeMenu(e){
     }
 }
 
-//Removes minions from list/page
+//Removes ticks from list/page
 function RemoveTicks(numberToRemove=1){
     for(let i = 0; i < numberToRemove; i++)
     {
         gameWorld.removeChild(tickArray.pop());
+    }
+}
+
+//Removes leeches from list/page
+function RemoveLeeches(numberToRemove=1){
+    for(let i = 0; i < numberToRemove; i++)
+    {
+        gameWorld.removeChild(leechArray.pop());
     }
 }
