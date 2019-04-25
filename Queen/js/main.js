@@ -216,10 +216,6 @@ function buyTick(){
         newTick.src = "media/bug1.png";
         newTick.setAttribute("class","minion");
         newTick.style.top = Math.random() * 140 + "px";
-        //TODO: Resize image or points deducted!
-        newTick.style.maxHeight = "30px";
-        newTick.style.maxWidth = "30px";
-
         gameWorld.appendChild(newTick);
         tickArray.push(newTick);
 
@@ -282,10 +278,6 @@ function buyLeech(){
         newLeech.src = "media/leech1.png";
         newLeech.setAttribute("class","minion");
         newLeech.style.top = Math.random() * 140 + "px";
-        //TODO: Edit size of image outside of code or lose points!!!
-        newLeech.style.maxHeight = "30px";
-        newLeech.style.maxWidth = "30px";
-
         gameWorld.appendChild(newLeech);
         leechArray.push(newLeech);
     }
@@ -456,10 +448,6 @@ function loadData(){
             newTick.src = "media/bug1.png";
             newTick.setAttribute("class","minion");
             newTick.style.top = Math.random() * 140 + "px";
-            //TODO: Resize image or points deducted!
-            newTick.style.maxHeight = "30px";
-            newTick.style.maxWidth = "30px";
-
             gameWorld.appendChild(newTick);
             tickArray.push(newTick);
         }
@@ -473,10 +461,6 @@ function loadData(){
             newLeech.src = "media/leech1.png";
             newLeech.setAttribute("class","minion");
             newLeech.style.top = Math.random() * 140 + "px";
-            //TODO: Edit size of image outside of code or lose points!!!
-            newLeech.style.maxHeight = "30px";
-            newLeech.style.maxWidth = "30px";
-    
             gameWorld.appendChild(newLeech);
             leechArray.push(newLeech);
         }
