@@ -2,9 +2,13 @@
 
 //Sets up the game when the window is loaded.
 window.onload = function(){
-    SetUpGame();
+    setUpGame();
 };
 
+
+//TODO: Implement local storage for saving progress
+//TODO: Implement an ES6 class of my own creation
+//TODO: Sounds to enhance the experience
 //Declare variables//
 
 //Gets the game containers
@@ -79,7 +83,7 @@ let upgradeLeechCost;
 let tickArray = [];
 let leechArray = [];
 
-function SetUpGame(){
+function setUpGame(){
 
     //Gets a reference to the game container(s)
     app  = document.querySelector("#gameContainer");
@@ -119,42 +123,42 @@ function SetUpGame(){
     levelLeech = 1;
 
     //Calculate costs, caps, and gains etc.
-    PerformCalculations();
+    performCalculations();
 
     //Set text of the labels
-    UpdateLabels();
+    updateLabels();
 
     //Set up the buttons
     buttonHarvest.innerHTML = "Harvest";
     buttonHarvest.setAttribute("id","buttonHarvest");
-    buttonHarvest.onclick = Harvest;
+    buttonHarvest.onclick = harvest;
 
     buttonBuyTick.innerHTML = `Spawn Tick: ${tickCost} nutrients`;
-    buttonBuyTick.onclick = BuyTick;
+    buttonBuyTick.onclick = buyTick;
 
     buttonBuyLeech.innerHTML = `Spawn Leech: ${leechCost}`;
-    buttonBuyLeech.onclick = BuyLeech;
+    buttonBuyLeech.onclick = buyLeech;
 
     buttonBuyHost.innerHTML = `Infect Host: ${hostCost} minions`;
-    buttonBuyHost.onclick = BuyHost;
+    buttonBuyHost.onclick = buyHost;
 
     buttonConsumeHost.innerHTML = `Consume Host: +${proteinPerHost} protein`;
-    buttonConsumeHost.onclick = ConsumeHost;
+    buttonConsumeHost.onclick = consumeHost;
 
     buttonUpgradeHarvest.innerHTML = `Upgrade Harvest: ${upgradeHarvestCost} protein`;
-    buttonUpgradeHarvest.onclick = LevelUpHarvest;
+    buttonUpgradeHarvest.onclick = levelUpHarvest;
 
     buttonUpgradeLeech.innerHTML = `Upgrade Leech: ${upgradeLeechCost} protein`;
-    buttonUpgradeLeech.onclick = LevelUpLeech;
+    buttonUpgradeLeech.onclick = levelUpLeech;
 
     buttonUnits.innerHTML = "Units";
-    buttonUnits.onclick = ChangeMenu;
+    buttonUnits.onclick = changeMenu;
 
     buttonHosts.innerHTML = "Hosts";
-    buttonHosts.onclick = ChangeMenu;
+    buttonHosts.onclick = changeMenu;
 
     buttonUpgrades.innerHTML = "Upgrades";
-    buttonUpgrades.onclick = ChangeMenu;
+    buttonUpgrades.onclick = changeMenu;
 
     //Append elements to the statsDisplay container
     statsDisplay.appendChild(nutrientsLabel);
@@ -179,31 +183,31 @@ function SetUpGame(){
     menuButtons.appendChild(buttonUnits);
 
     //Setup gaining nutrients per second
-    setInterval(GainNutrientsPerSecond, 100);
+    setInterval(gainNutrientsPerSecond, 100);
 }
 
 //Gain nutrients and update labels
-function Harvest(){
+function harvest(){
     nutrients += nutrientsPerClick;
-    UpdateLabels();
+    updateLabels();
 }
 
 //Gain 1/10th of nutrients per second every 100 milliseconds
-function GainNutrientsPerSecond(){
+function gainNutrientsPerSecond(){
     nutrients += nutrientsPerSecond/10;
-    UpdateLabels();
+    updateLabels();
 }
 
 //Buy a tick if the player has capacity and currency for one
-function BuyTick(){
+function buyTick(){
     if(nutrients >= tickCost && minions < maxMinions)
     {
         ticks += 1;
         nutrients -= tickCost;
 
         //Update labels and calculate new values
-        PerformCalculations();
-        UpdateLabels();
+        performCalculations();
+        updateLabels();
 
         //Create the graphical representation of the little guy
         let newTick = document.createElement("img");
@@ -222,10 +226,8 @@ function BuyTick(){
     }
 }
 
-//TODO: Player can soft-lock if they fill up their army with leeches! Fix that somehow-
-//Maybe allow host-buying with leeches? Maybe...
 //Buys a host if player has the currency
-function BuyHost(){
+function buyHost(){
     if(minions >= hostCost){
 
         //Simply pay in ticks; nothing further required if there's enough.
@@ -233,7 +235,7 @@ function BuyHost(){
             ticks -= hostCost;
 
             //Removes ticks from the display
-            RemoveTicks(hostCost);
+            removeTicks(hostCost);
         }
         //Otherwise, ticks and leeches will need to be removed- or maybe even just leeches.
         else{
@@ -241,13 +243,13 @@ function BuyHost(){
             while(ticks < remainingCost && remainingCost > 0){
                 leeches -= 1;
                 remainingCost -= leechWeight;
-                RemoveLeeches(1);
+                removeLeeches(1);
             }
             //Either cost is paid off, or the player now has enough ticks to foot the bill
             if(remainingCost > 0)
             {
                 ticks -= remainingCost;
-                RemoveTicks(remainingCost);
+                removeTicks(remainingCost);
             }
         }
 
@@ -255,20 +257,20 @@ function BuyHost(){
         hosts += 1;
 
         //Calculate new values and update labels
-        PerformCalculations();
-        UpdateLabels();
+        performCalculations();
+        updateLabels();
     }
 }
 
 //Buys a leech if affordable
-function BuyLeech(){
+function buyLeech(){
     if(nutrients > leechCost && minions + leechWeight <= maxMinions)
     {
         nutrients -= leechCost;
         leeches += 1;
 
-        PerformCalculations();
-        UpdateLabels();
+        performCalculations();
+        updateLabels();
 
         //Create the graphical representation of the little guy
         let newLeech = document.createElement("img");
@@ -288,27 +290,27 @@ function BuyLeech(){
 //Player will consume a host if they have more than one.
 //Not only do they gain protein, but their minion capacity decreases.
 //Some minions may have to be removed.
-function ConsumeHost(){
+function consumeHost(){
     if(hosts > 1){
         hosts -= 1;
         protein += proteinPerHost;
-        PerformCalculations();
+        performCalculations();
 
         //Adjusts ticks if necesary
         //TODO: Logic for removing certain units in a priority
-        PerformCalculations();
+        performCalculations();
         if(ticks > maxMinions){
             ticks = maxMinions;
-            PerformCalculations();
+            performCalculations();
         }
 
         //Finally update the labels
-        UpdateLabels();
+        updateLabels();
     }
 }
 
 //Updates all of the labels. Called whenever something happens that requries recalculations.
-function UpdateLabels(){
+function updateLabels(){
     nutrientsLabel.innerHTML = `Nutrients: ${Math.floor(nutrients)}`;
     minionsLabel.innerHTML = `Minions: ${minions}/${maxMinions}`;
     hostsLabel.innerHTML = `Hosts: ${hosts}`;
@@ -339,31 +341,31 @@ function UpdateLabels(){
 }
 
 //Level up harvest efficiency
-function LevelUpHarvest(){
+function levelUpHarvest(){
     if(protein >= upgradeHarvestCost)
     {
         protein -= upgradeHarvestCost;
         levelHarvest += 1;
 
-        PerformCalculations();
-        UpdateLabels();
+        performCalculations();
+        updateLabels();
     }
 }
 
 //Level up leech efficiency
-function LevelUpLeech(){
+function levelUpLeech(){
     if(protein >= upgradeLeechCost)
     {
         protein -= upgradeLeechCost;
         levelLeech += 1;
 
-        PerformCalculations();
-        UpdateLabels();
+        performCalculations();
+        updateLabels();
     }
 }
 
 //Change the contextual menu
-function ChangeMenu(e){
+function changeMenu(e){
     let searchString = e.target.innerHTML.toLowerCase();
     searchString += "Buttons";
     searchString = eval(searchString)
@@ -387,7 +389,7 @@ function ChangeMenu(e){
 }
 
 //Removes ticks from list/page
-function RemoveTicks(numberToRemove=1){
+function removeTicks(numberToRemove=1){
     for(let i = 0; i < numberToRemove; i++)
     {
         gameWorld.removeChild(tickArray.pop());
@@ -395,7 +397,7 @@ function RemoveTicks(numberToRemove=1){
 }
 
 //Removes leeches from list/page
-function RemoveLeeches(numberToRemove=1){
+function removeLeeches(numberToRemove=1){
     for(let i = 0; i < numberToRemove; i++)
     {
         gameWorld.removeChild(leechArray.pop());

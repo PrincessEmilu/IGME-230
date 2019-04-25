@@ -1,6 +1,6 @@
 "use strict"
 
-function PerformCalculations() {
+function performCalculations() {
 
     //Minion calculations
     //Calculates max minions
