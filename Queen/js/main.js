@@ -100,8 +100,8 @@ function SetUpGame(){
     let rect = gameWorld.getBoundingClientRect();
     minX = rect.left;
     maxX = rect.right - 40;
-    minY = rect.top + 100;
-    maxY = rect.bottom;
+    minY = rect.top;
+    maxY = rect.bottom - 90;
 
     //Set variables
     nutrients = 0;
@@ -134,7 +134,7 @@ function SetUpGame(){
     buttonBuyLeech.innerHTML = `Spawn Leech: ${leechCost}`;
     buttonBuyLeech.onclick = BuyLeech;
 
-    buttonBuyHost.innerHTML = `Infect Host: ${hostCost} ticks`;
+    buttonBuyHost.innerHTML = `Infect Host: ${hostCost} minions`;
     buttonBuyHost.onclick = BuyHost;
 
     buttonConsumeHost.innerHTML = `Consume Host: +${proteinPerHost} protein`;
@@ -168,7 +168,6 @@ function SetUpGame(){
     harvestContainer.appendChild(buttonHarvest);
 
     unitsButtons.appendChild(buttonBuyTick);
-    unitsButtons.appendChild(buttonBuyLeech);
 
     hostsButtons.appendChild(buttonBuyHost);
     hostsButtons.appendChild(buttonConsumeHost);
@@ -177,8 +176,6 @@ function SetUpGame(){
     upgradesButtons.appendChild(buttonUpgradeLeech);
 
     menuButtons.appendChild(buttonUnits);
-    menuButtons.appendChild(buttonUpgrades);
-    menuButtons.appendChild(buttonHosts);
 
     //Setup gaining nutrients per second
     setInterval(GainNutrientsPerSecond, 100);
@@ -228,12 +225,33 @@ function BuyTick(){
 //Maybe allow host-buying with leeches? Maybe...
 //Buys a host if player has the currency
 function BuyHost(){
-    if(ticks >= hostCost){
-        ticks -= hostCost;
-        hosts += 1;
+    if(minions >= hostCost){
 
-        //Removes ticks from the display
-        RemoveTicks(hostCost);
+        //Simply pay in ticks; nothing further required if there's enough.
+        if(ticks >= hostCost){
+            ticks -= hostCost;
+
+            //Removes ticks from the display
+            RemoveTicks(hostCost);
+        }
+        //Otherwise, ticks and leeches will need to be removed- or maybe even just leeches.
+        else{
+            let remainingCost = hostCost;
+            while(ticks < remainingCost && remainingCost > 0){
+                leeches -= 1;
+                remainingCost -= leechWeight;
+                //RemoveLeeches();
+            }
+            //Either cost is paid off, or the player now has enough ticks to foot the bill
+            if(remainingCost > 0)
+            {
+                ticks -= remainingCost;
+                RemoveTicks(remainingCost);
+            }
+        }
+
+        //Finally, give the player the host and update displays/values
+        hosts += 1;
 
         //Calculate new values and update labels
         PerformCalculations();
@@ -284,15 +302,25 @@ function UpdateLabels(){
 
     buttonBuyTick.innerHTML = `Spawn Tick: ${tickCost} nutrients`;
     buttonBuyLeech.innerHTML = `Spawn Leech: ${leechCost}`;
-    buttonBuyHost.innerHTML = `Infect Host: ${hostCost} ticks`;
+    buttonBuyHost.innerHTML = `Infect Host: ${hostCost} minions`;
     buttonUpgradeHarvest.innerHTML = `Upgrade Harvest: ${upgradeHarvestCost} protein`;
     buttonUpgradeLeech.innerHTML = `Upgrade Leech: ${upgradeLeechCost} protein`;
 
     //This section here will display new info as the player advances
-    if(minions >= 12 && hostsLabel.style.display == "none")
+    //Appends leech button
+    if(minions == 10 && menuButtons.childNodes.length == 1){
+        unitsButtons.appendChild(buttonBuyLeech);
+    }
+    //Shows hosts and protein info, appends hosts button
+    if(minions >= 15 && hostsLabel.style.display == "none")
     {
         hostsLabel.style.display = "block";
         proteinLabel.style.display = "block";
+        menuButtons.appendChild(buttonHosts);
+    }
+    //Add upgrade menu when host first gained
+    if(hosts > 1 && menuButtons.childNodes.length == 2){
+        menuButtons.appendChild(buttonUpgrades);
     }
 }
 

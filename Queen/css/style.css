@@ -44,10 +44,12 @@ html, body{
     border-width: 0.25em;
 
     transition: background-color 500ms;
+    transition: color 500ms;
 }
 
 #buttonHarvest:hover{
     background-color: #8332ac;
+    color: red;
 }
 
 #harvestContainer{
@@ -77,6 +79,8 @@ html, body{
     padding: 1em;
     line-height: 0.5em;
     z-index: 1000;
+
+    width: 200px;
 
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 1em;
