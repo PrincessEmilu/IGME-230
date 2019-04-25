@@ -210,14 +210,7 @@ function buyTick(){
         performCalculations();
         updateLabels();
 
-        //Create the graphical representation of the little guy
-        let newTick = document.createElement("img");
-        newTick.minionType = "tick";
-        newTick.src = "media/bug1.png";
-        newTick.setAttribute("class","minion");
-        newTick.style.top = Math.random() * 140 + "px";
-        gameWorld.appendChild(newTick);
-        tickArray.push(newTick);
+        tickArray.push(new Tick());
 
 
     }
@@ -273,13 +266,7 @@ function buyLeech(){
         updateLabels();
 
         //Create the graphical representation of the little guy
-        let newLeech = document.createElement("img");
-        newLeech.minionType = "leech";
-        newLeech.src = "media/leech1.png";
-        newLeech.setAttribute("class","minion");
-        newLeech.style.top = Math.random() * 140 + "px";
-        gameWorld.appendChild(newLeech);
-        leechArray.push(newLeech);
+        leechArray.push(new Leech());
     }
 }
 
@@ -390,7 +377,7 @@ function changeMenu(e){
 function removeTicks(numberToRemove=1){
     for(let i = 0; i < numberToRemove; i++)
     {
-        gameWorld.removeChild(tickArray.pop());
+        tickArray.pop().remove();
     }
 }
 
@@ -443,26 +430,14 @@ function loadData(){
         //Add ticks to tick array
         for(let i = 0; i < ticks; i++){
             //Create the graphical representation of the little guy
-            let newTick = document.createElement("img");
-            newTick.minionType = "tick";
-            newTick.src = "media/bug1.png";
-            newTick.setAttribute("class","minion");
-            newTick.style.top = Math.random() * 140 + "px";
-            gameWorld.appendChild(newTick);
-            tickArray.push(newTick);
+            tickArray.push(new Tick());
         }
 
         //Add leeches to leech array
         for(let i = 0; i < leeches; i ++){
     
             //Create the graphical representation of the little guy
-            let newLeech = document.createElement("img");
-            newLeech.minionType = "leech";
-            newLeech.src = "media/leech1.png";
-            newLeech.setAttribute("class","minion");
-            newLeech.style.top = Math.random() * 140 + "px";
-            gameWorld.appendChild(newLeech);
-            leechArray.push(newLeech);
+            leechArray.push(new Leech());
         }
     }
 }
