@@ -41,7 +41,7 @@ img{
 #gallery{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
 
     border-style: solid;
     border-color: silver;
@@ -50,6 +50,9 @@ img{
 .gallery-item{
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+
+    max-width: 500px;
 
     margin: 1em;
 }
@@ -86,7 +89,16 @@ footer{
 
 a{
     color: cyan;
+}a:visited{
+    color: magenta;
 }
+a:hover{
+    color: red;
+}
+a:active{
+    color: white;
+}
+
 /*Largish monitors*/
 @media (min-width: 1024px){
     html{

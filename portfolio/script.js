@@ -6,10 +6,9 @@ let galleryItems;
 //When the window loads, set up event handling
 window.onload = (e) =>{
     galleryItems = document.querySelectorAll(".gallery-item img");
-    galleryItems[0].onclick = showHide;
-    galleryItems[1].onclick = showHide;
-    galleryItems[2].onclick = showHide;
-    galleryItems[3].onclick = showHide;
+    for(let i = 0; i <galleryItems.length; i++){
+        galleryItems[i].onclick = showHide;
+    }
 };
 
 //Simply changes display type
