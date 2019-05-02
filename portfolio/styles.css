@@ -7,7 +7,7 @@ html{
     margin: 1em;
 }
 
-#smallest-image{
+.smallest-image{
     display: none;
 }
 h1{
@@ -16,6 +16,11 @@ h1{
     text-align: center;
     color: lime;
     width: 100%;
+}
+h2{
+    font-family: 'VT323', sans-serif;
+    width: 100%;
+    text-align: center;
 }
 nav{
     display: flex;
@@ -91,10 +96,10 @@ a{
 
 /*Phone screens*/
 @media (max-width: 480px){
-    #full-image{
+    .full-image{
         display: none;
     }
-    #smallest-image{
+    .smallest-image{
         display: block;
     }
     nav a{
