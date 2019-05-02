@@ -27,6 +27,8 @@ nav{
     flex-wrap: wrap;
     justify-content: space-evenly;
 
+    padding: 1em;
+
     border-style: solid;
     border-color: silver;
     border-width: 1px;
