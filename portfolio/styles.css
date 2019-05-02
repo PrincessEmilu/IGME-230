@@ -41,6 +41,12 @@ img{
     border-color: silver;
     border-width: 1px;
 }
+.gallery-item{
+    display: flex;
+    flex-direction: column;
+
+    margin: 1em;
+}
 
 .gallery-item p{
     display: none;
