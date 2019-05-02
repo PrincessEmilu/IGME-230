@@ -1,12 +1,80 @@
 html{
     font-family: 'Open Sans', sans-serif;
-    color: lime;
     background-color: black;
+    color: lime;
+}
+#container > *{
+    margin: 1em;
+}
+
+#smallest-image{
+    display: none;
 }
 h1{
     font-family: 'VT323', sans-serif;
     text-align: center;
+    color: lime;
+    width: 100%;
+}
+nav{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    border-style: solid;
+    border-color: silver;
+    border-width: 1px;
+}
+
+img{
+    border-style: solid;
+    border-color: silver;
+    border-width: 1px;
+    border-radius: 1em;
+}
+#gallery{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    border-style: solid;
+    border-color: silver;
+    border-width: 1px;
+}
+
+.gallery-item p{
+    display: none;
+}
+
+#about{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    padding: 1em;
+
+    color: white;
+
+    border-style: solid;
+    border-color: silver;
+    border-width: 1px;
+}
+
+a{
+    color: cyan;
 }
 
 @media (max-width: 480px){
+    #full-image{
+        display: none;
+    }
+    #smallest-image{
+        display: block;
+    }
+    nav a{
+        width: 100%;
+    }
+    #about{
+        justify-content: center;
+    }
 }
