@@ -1,0 +1,12 @@
+html{
+    font-family: 'Open Sans', sans-serif;
+    color: lime;
+    background-color: black;
+}
+h1{
+    font-family: 'VT323', sans-serif;
+    text-align: center;
+}
+
+@media (max-width: 480px){
+}
