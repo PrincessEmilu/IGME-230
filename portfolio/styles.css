@@ -34,12 +34,6 @@ nav{
     border-width: 1px;
 }
 
-img{
-    border-style: solid;
-    border-color: silver;
-    border-width: 1px;
-    border-radius: 1em;
-}
 #gallery{
     display: flex;
     flex-wrap: wrap;
@@ -57,6 +51,12 @@ img{
     max-width: 500px;
 
     margin: 1em;
+}
+.gallery-item img{
+    border-style: solid;
+    border-color: silver;
+    border-width: 1px;
+    border-radius: 1em;
 }
 .gallery-item img:hover{
     opacity: 0.5;
@@ -83,10 +83,35 @@ img{
     border-width: 1px;
 }
 
-footer{
+#about img{
     border-style: solid;
     border-color: silver;
     border-width: 1px;
+    border-radius: 1em;
+}
+
+footer{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+
+    padding: 1em;
+    border-style: solid;
+    border-color: silver;
+    border-width: 1px;
+}
+
+footer a:hover{
+    filter: hue-rotate(200deg);
+-webkit-filter: hue-rotate(200deg);
+}
+
+input, textarea{
+    border-color: lime;
+    color: lime;
+    background-color: black;
+    padding: 1em;
 }
 
 a{

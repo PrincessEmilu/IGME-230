@@ -4,7 +4,7 @@
 
 Currently I am using three Google Fonts. Open Sans for most text, Lobster for various headings, and VT323 for my stylized welcome.
 
-More info to come as will be appropriate.
+I also heavily borrowed code from the PHP Homework 4 to make the contact form.
 
 ## Inspiration
 
