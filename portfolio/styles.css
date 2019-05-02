@@ -12,6 +12,7 @@ html{
 }
 h1{
     font-family: 'VT323', sans-serif;
+    font-size: 300%;
     text-align: center;
     color: lime;
     width: 100%;
@@ -47,6 +48,12 @@ img{
 
     margin: 1em;
 }
+.gallery-item img:hover{
+    opacity: 0.5;
+    color: white;
+
+    transition: opacity 500ms;
+}
 
 .gallery-item p{
     display: none;
@@ -66,10 +73,23 @@ img{
     border-width: 1px;
 }
 
+footer{
+    border-style: solid;
+    border-color: silver;
+    border-width: 1px;
+}
+
 a{
     color: cyan;
 }
+/*Largish monitors*/
+@media (min-width: 1024px){
+    html{
+        padding: 0em 15%;
+    }
+}
 
+/*Phone screens*/
 @media (max-width: 480px){
     #full-image{
         display: none;
