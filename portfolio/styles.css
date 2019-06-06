@@ -90,6 +90,10 @@ nav{
     border-radius: 1em;
 }
 
+#about p{
+    max-width: 400px;
+}
+
 footer{
     display: flex;
     flex-wrap: wrap;
