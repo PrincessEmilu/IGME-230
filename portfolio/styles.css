@@ -1,7 +1,7 @@
 html{
     font-family: 'Open Sans', sans-serif;
     background-color: black;
-    color: lime;
+    color: white;
 }
 #container > *{
     margin: 1em;
@@ -21,6 +21,7 @@ h2{
     font-family: 'VT323', sans-serif;
     width: 100%;
     text-align: center;
+    color: lime;
 }
 nav{
     display: flex;
