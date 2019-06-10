@@ -122,13 +122,13 @@ input, textarea{
 a{
     color: cyan;
 }a:visited{
-    color: magenta;
+    color: cyan;
 }
 a:hover{
-    color: red;
+    color: magenta;
 }
 a:active{
-    color: white;
+    color: red;
 }
 
 /*Largish monitors*/
