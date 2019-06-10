@@ -10,6 +10,10 @@ html{
 .smallest-image{
     display: none;
 }
+.medium-image{
+    display: none;
+}
+
 h1{
     font-family: 'VT323', sans-serif;
     font-size: 300%;
@@ -131,16 +135,33 @@ a:active{
     color: red;
 }
 
-/*Largish monitors*/
-@media (min-width: 1024px){
+
+/*Padding for wider screens*/
+@media (min-width: 800px){
     html{
         padding: 0em 15%;
+    }
+}
+
+/*Medium Monitors*/
+@media (max-width: 1536px){
+    .full-image{
+        display: none;
+    }
+    .smallest-image{
+        display: none;
+    }
+    .medium-image{
+        display: block;
     }
 }
 
 /*Phone screens*/
 @media (max-width: 480px){
     .full-image{
+        display: none;
+    }
+    .medium-image{
         display: none;
     }
     .smallest-image{
